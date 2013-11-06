@@ -1,4 +1,4 @@
 Wicket
 ======
 
-A "GitList" like app in .Net built using Nancy Framework and LibGit2Sharp
+A .Net port for "GitList" (https://github.com/klaussilveira/gitlist) built with Nancy Framework and LibGit2Sharp
