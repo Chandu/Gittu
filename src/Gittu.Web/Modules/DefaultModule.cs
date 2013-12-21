@@ -1,4 +1,5 @@
-﻿using Nancy;
+﻿using Gittu.Web.ViewModels;
+using Nancy;
 
 namespace Gittu.Web.Modules
 {
@@ -6,7 +7,16 @@ namespace Gittu.Web.Modules
 	{
 		public DefaultModule()
 		{
-			Get["/"] = _ => View["Home.html", new {Name="Chandu"}];
+			Get["/"] = _ => {
+				if (Context.CurrentUser != null)
+				{
+					return View["Home.html"];
+				}
+				else
+				{
+					return View["GuestHome.html"];
+				}
+			};
 		}
 	}
 }

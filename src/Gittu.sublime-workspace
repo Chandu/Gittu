@@ -1,0 +1,786 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"proje",
+				"projectsPanel"
+			],
+			[
+				"text",
+				"text-decoration"
+			],
+			[
+				"tags",
+				"tagsMap"
+			],
+			[
+				"tag",
+				"tagsMap"
+			],
+			[
+				"proj",
+				"projectsPanel"
+			],
+			[
+				"ta",
+				"tagsMap"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"t",
+				"tags"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"pro",
+				"projects"
+			],
+			[
+				"bor",
+				"border-style"
+			],
+			[
+				"Login",
+				"LoginViewModel"
+			],
+			[
+				"bac",
+				"background-image"
+			],
+			[
+				"tem",
+				"templateHtml"
+			],
+			[
+				"updates",
+				"updates-bar"
+			],
+			[
+				"co",
+				"connection_name"
+			],
+			[
+				"bui",
+				"build_migrations"
+			],
+			[
+				"photon",
+				"photon-app"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Gittu.Web/Views/Home.html",
+			"settings":
+			{
+				"buffer_size": 118,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"removep",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"Inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 458.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/G/CodeSpun/Gittu/src/sidekick.bat",
+		"/G/CodeSpun/Gittu/src/dotnet.watchr.rb",
+		"/G/CodeSpun/Gittu/src/watcher_dot_net.rb",
+		"/E/VagrantBoxes/Vagrantfile",
+		"/C/Users/Chandu/Desktop/Sample.cs",
+		"/G/CodeSpun/Gittu/src/Gittu.Web/karma.conf.js",
+		"/G/CodeSpun/Gittu/karma.conf.js",
+		"/G/CodeSpun/Gittu/src/Gittu.Web/Views/Home.html",
+		"/E/VagrantBoxes/cookbooks/ruby/recipes/default.rb",
+		"/G/CodeSpun/Gittu/src/Gittu.Web/Views/Layout.html",
+		"/G/CodeSpun/Gittu/src/Gittu.Web/Views/PlainLayout.html",
+		"/f/Tools/Sublime/Data/Packages/User/Preferences.sublime-settings",
+		"/G/Github/up-for-grabs.net/Gemfile",
+		"/G/Github/up-for-grabs.net/_site/index.html",
+		"/G/Github/up-for-grabs.net/javascripts/main.js",
+		"/G/Github/up-for-grabs.net/index.html",
+		"/G/Github/up-for-grabs.net/javascripts/projectsService.js",
+		"/G/Github/up-for-grabs.net/_site/javascripts/main.js",
+		"/G/Github/up-for-grabs.net/tests/spec/ProjectsServiceSpec.js",
+		"/G/Github/up-for-grabs.net/_plugins/projects_data_generator.rb",
+		"/G/Github/up-for-grabs.net/stylesheets/stylesheet.css",
+		"/G/Github/up-for-grabs.net/_config.yml",
+		"/G/Github/up-for-grabs.net/tests/SpecRunner.html",
+		"/G/Github/up-for-grabs.net/tests/src/sampleProjects.js",
+		"/G/Github/up-for-grabs.net/stylesheets/chosen.min.css",
+		"/G/Github/up-for-grabs.net/projects.json",
+		"/G/Github/up-for-grabs.net/tests/src/Player.js",
+		"/G/Github/up-for-grabs.net/tests/spec/ControllerSpecs.js",
+		"/G/Github/up-for-grabs.net/stylesheets/styles.scss",
+		"/G/Github/up-for-grabs.net/_plugins/sass_converter.rb",
+		"/G/Github/up-for-grabs.net/tests/src/sample-projects.js",
+		"/G/Github/up-for-grabs.net/tests/spec/ProjectsControllerSpecs.js",
+		"/G/Github/up-for-grabs.net/tests/spec/ProjectsServiceSpecs.js",
+		"/G/Github/up-for-grabs.net/_site/projects.json",
+		"/G/Github/up-for-grabs.net/_plugins/generators.rb",
+		"/G/Dustbin/plunkr/appSpec.js",
+		"/G/Github/up-for-grabs.net/karma.config.js",
+		"/G/Dustbin/plunkr/app.js",
+		"/G/Github/up-for-grabs.net/javascripts/app.js",
+		"/G/Github/up-for-grabs.net/tests/lib/angular-mocks.js",
+		"/G/Github/up-for-grabs.net/tests/spec/PlayerSpec.js",
+		"/G/Github/up-for-grabs.net/_data/projects.yml",
+		"/G/Github/up-for-grabs.net/javascripts/templates/project.html",
+		"/G/Github/up-for-grabs.net/javascripts/templates/projects.html",
+		"/G/Github/up-for-grabs.net/projects.html",
+		"/G/Github/up-for-grabs.net/javascripts/vendor/liquid.min.js",
+		"/G/Github/minty-cms/Gruntfile.js",
+		"/G/Github/snipe-it/app/views/backend/layouts/default.blade.php",
+		"/G/Github/snipe-it/public/assets/css/lib/alertify.default.css",
+		"/f/Tools/Sublime/Data/Packages/Default/Preferences.sublime-settings",
+		"/G/Github/snipe-it/app/views/backend/assets/index.blade.php",
+		"/G/Github/snipe-it/public/assets/css/scss/elements.scss",
+		"/G/Github/snipe-it/vendor/nikic/php-parser/grammar/README.md",
+		"/G/Github/snipe-it/vendor/laravel/framework/src/Illuminate/Foundation/Console/OptimizeCommand.php",
+		"/G/Github/snipe-it/.gitignore",
+		"/G/Github/snipe-it/app/storage/views/c493a2ef579f4b34eac81c24e3304c20",
+		"/G/Github/snipe-it/app/config/app.php",
+		"/G/Github/snipe-it/app/config/database.php",
+		"/G/Github/snipe-it/app/views/backend/depreciations/index.blade.php",
+		"/G/Github/snipe-it/public/.htaccess",
+		"/G/Github/snipe-it/public/test.php",
+		"/g/CodeSpun/Partey/src/Partey.Web/Views/Login.cshtml",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/app/signUpInApp.js",
+		"/G/CodeSpun/Partey/src/Partey.Web/assets/app/services/accountsService.js",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/templates/accounts/signUp.htm",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/app/controllers/signUpInControllers.js",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/css/partey.less",
+		"/C/Users/Chandu/.vagrant.d/boxes/ubuntu/virtualbox/Vagrantfile",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/app/viewModels/signupViewModel.js",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/templates/signUp.htm",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/templates/login.htm",
+		"/g/CodeSpun/Partey/src/Partey.Web/Views/_LoginLayout.cshtml",
+		"/g/CodeSpun/Partey/src/Partey.Web/Views/_Layout.cshtml",
+		"/g/CodeSpun/Partey/src/Partey.Web/Views/_BottomScripts.cshtml",
+		"/g/CodeSpun/Partey/src/Partey.Web/Views/_PlainLayout.cshtml",
+		"/g/CodeSpun/Partey/src/Partey.Web/assets/app/controllers/signInUpControllers.js",
+		"/G/CodeSpun/Partey/src/Partey.Web/assets/app/viewModels/registrationViewModel.js",
+		"/G/CodeSpun/Partey/src/Partey.Web/assets/app/viewModels/loginViewModel.js",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/Login.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/_BottomScripts.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/assets/css/partey.less",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/Home.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/_LoginLayout.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/_PlainLayout.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/_Layout.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/_CommonScripts.cshtml",
+		"/G/CodeSpun/Partey/src/Partey.Web/ViewModels/LoginViewModel.cs",
+		"/G/CodeSpun/Partey/src/Partey.Web/Views/LoginLayout.cshtml",
+		"/g/CodeSpun/Gittu/src/Gittu.Web/Views/Home.html",
+		"/g/CodeSpun/Gittu/src/Gittu.Web/Gittu.Web.csproj",
+		"/g/CodeSpun/Gittu/src/Gittu.Web/Views/Layout.html",
+		"/g/CodeSpun/Gittu/src/Gittu.Web/public/css/gittu.less",
+		"/g/CodeSpun/Gittu/src/Gittu.Web/public/css/gittu.css",
+		"/G/CodeSpun/Gittu/src/test.bat",
+		"/C/Users/Chandu/AppData/Local/Atlassian/SourceTree/bookmarks.xml",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/Views/Home.html",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/Views/Layout.html",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/public/css/gittu.less",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/public/css/gittu.css",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/public/css/bootstrap/bootstrap.less",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/Views/Layout.cshtml",
+		"/g/@Github/gitlist/src/GitList/Util/Repository.php",
+		"/g/@CodeSpun/Gittu/src/Gittu.Web/Views/_Layout.cshtml",
+		"/F/Tools/Sublime/Data/Packages/Less2Css/Default (Windows).sublime-keymap",
+		"/F/Tools/Sublime/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/F/Tools/Sublime/Data/Packages/Less2Css/less2css.sublime-settings",
+		"/G/install_gitlab.sh",
+		"/g/@Github/gitlist/tests/InterfaceTest.php",
+		"/g/@Github/gitlist/src/GitList/Git/Repository.php",
+		"/g/@Github/gitlist/src/GitList/Controller/MainController.php",
+		"/g/@Github/gitlist/src/GitList/Util/Routing.php",
+		"/G/gitlab",
+		"/G/Applications/Rails/blog/app/controllers/greetings_controller.rb",
+		"/G/Dustbin/install-gitlab.sh",
+		"/g/@CodeSpun/Partey/src/Partey.Web/Views/Home.cshtml",
+		"/g/@CodeSpun/Partey/src/Partey.Web/Views/Login.cshtml",
+		"/g/@CodeSpun/Partey/src/Partey.Web/Views/_Layout.cshtml",
+		"/g/@CodeSpun/Partey/src/Partey.Web/Web.config",
+		"/G/@CodeSpun/Gittu/README.md",
+		"/G/@CodeSpun/Gittu/Rakefile.rb",
+		"/G/@Github/gitlist/web/css/style.css",
+		"/G/@Github/gitlist/composer.lock",
+		"/F/Sites/GitList/index.php",
+		"/F/Sites/GitList/boot.php",
+		"/F/Sites/GitList/vendor/autoload.php",
+		"/F/Sites/GitList/config.ini",
+		"/F/Sites/GitList/.htaccess",
+		"/g/ChildNutrition/src/Nutrition.Web/Areas/Admin/Views/Cafeteria/SearchResults.cshtml"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+			"G:\\Github\\snipe-it",
+			"G:\\ChildNutrition\\src",
+			"C:\\xampp\\apache",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"find f",
+			"notifier",
+			"GrowlNotifier",
+			"config.vm.boot_timeou",
+			"time",
+			"prov",
+			"chef",
+			"assets",
+			"public",
+			"assets",
+			"192.168.50",
+			"conso",
+			"/#",
+			"conso",
+			"console",
+			"getAllTags",
+			"templateCompiledFn",
+			"having those",
+			"chosen-sprite",
+			"font-famil",
+			"chosen-sprite",
+			"'",
+			"projectsService",
+			"applyTags",
+			"})));",
+			"end",
+			"]",
+			"[",
+			"project.",
+			"'",
+			"Login",
+			"right",
+			"}",
+			"{",
+			"}}",
+			"liqui",
+			"less",
+			"compiled/",
+			"compiled",
+			"open",
+			"btn-flat danger",
+			"Delete",
+			"smarty",
+			"required",
+			"smarty",
+			"registration",
+			"\"\"",
+			"observable()",
+			"obeservable",
+			"observble",
+			">",
+			"top",
+			"LibGit2Sharp",
+			"CodeSPu",
+			"G:\\@Github",
+			"Url.Content(\"",
+			"Part.ey",
+			"$domain_var",
+			"'",
+			"VisualStudioVersion",
+			"depl",
+			"2",
+			"Partey",
+			"none",
+			"spun",
+			"newbranch",
+			"RefactorCN.Models.Mapping",
+			"Column",
+			"TABLE_SQL",
+			"Column",
+			"GetMigrationTypeFunctionForType",
+			"SchemaReader",
+			"AsBoo",
+			"AsBool",
+			"get; set; ",
+			"> ",
+			"public DbSet",
+			"trackingClick",
+			"con",
+			".Ingredient",
+			".Inggredient",
+			".InggredientId",
+			"hide",
+			".]",
+			"10003700048800381380",
+			"100037000488003813806",
+			"5",
+			"servingsizeqty",
+			"4.5",
+			"private_key_path",
+			"partials/admin/",
+			"80",
+			"error_reporting",
+			"PackageSourceManifest",
+			"publis",
+			"<",
+			", varchar(max),>",
+			", varchar(250),>",
+			", varchar(50),>",
+			"\",\nDataType = SystemTypes.String,",
+			"Name = \"",
+			"},\n",
+			"new FixedLengthFieldMetadata\n{",
+			"+",
+			"\\"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"10.0.0",
+			"#",
+			"associated with those",
+			"../images/chosen-sprite",
+			"\"",
+			"]",
+			"[",
+			"",
+			"\"",
+			">",
+			"<",
+			"%>",
+			"ng-required=\"true\"",
+			"",
+			"observable(\"\")",
+			"G:\\Github",
+			"Path['",
+			"\"",
+			"Nutrition.Domain.Mapping",
+			"get; ",
+			"> INutritionRepository.",
+			"INutritionRepository.",
+			"IQueryable",
+			" @",
+			" ",
+			" {get; set;}",
+			"public string ",
+			"",
+			"\\\\"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Gittu.Web/Views/Home.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 118,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.9o://G:\\Applications\\Go":
+	{
+		"height": 120.0
+	},
+	"output.GoSublime-main-output":
+	{
+		"height": 120.0
+	},
+	"output.GoSublime-output":
+	{
+		"height": 120.0
+	},
+	"output.MarGo-output":
+	{
+		"height": 120.0
+	},
+	"output.exec":
+	{
+		"height": 120.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "Gittu.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"home",
+				"Gittu.Web\\Views\\Home.html"
+			],
+			[
+				"sty",
+				"stylesheets\\stylesheet.css"
+			],
+			[
+				"spr",
+				"up-for-grabs.net\\tests\\SpecRunner.html"
+			],
+			[
+				"play",
+				"up-for-grabs.net\\tests\\spec\\PlayerSpec.js"
+			],
+			[
+				"confi",
+				"up-for-grabs.net\\_config.yml"
+			],
+			[
+				"partey.le",
+				"src\\Partey.Web\\assets\\css\\partey.less"
+			],
+			[
+				"sigc",
+				"src\\Partey.Web\\assets\\app\\controllers\\signInUpControllers.js"
+			],
+			[
+				"sign",
+				"src\\Partey.Web\\assets\\app\\signUpInApp.js"
+			],
+			[
+				"signup.js",
+				"src\\Partey.Web\\assets\\app\\viewModels\\signupViewModel.js"
+			],
+			[
+				"parte.less",
+				"src\\Partey.Web\\assets\\css\\partey.less"
+			],
+			[
+				"login.cs",
+				"src\\Partey.Web\\Views\\Login.cshtml"
+			],
+			[
+				"loginv",
+				"src\\Partey.Web\\assets\\app\\viewModels\\loginViewModel.js"
+			],
+			[
+				"_common",
+				"src\\Partey.Web\\Views\\_CommonScripts.cshtml"
+			],
+			[
+				"regis",
+				"src\\Partey.Web\\assets\\app\\viewModels\\registrationViewModel.js"
+			],
+			[
+				"web.conf",
+				"Partey.Web\\Web.config"
+			],
+			[
+				"dmin/views/cafeteria/edit.cshtml",
+				"Nutrition.Web\\Areas\\Admin\\Views\\Cafeteria\\Edit.cshtml"
+			],
+			[
+				"admin/cafa/searchr",
+				"Nutrition.Web\\Areas\\Admin\\Views\\Cafeteria\\SearchResults.cshtml"
+			],
+			[
+				"searchres",
+				"Nutrition.Web\\Views\\Cafeteria\\SearchResults.cshtml"
+			],
+			[
+				"recipins",
+				"Nutrition.Domain\\Models\\RecipeInstruction.cs"
+			],
+			[
+				"maptes",
+				"Nutrition.Tests\\Domain\\Mapping\\MappingTests.cs"
+			],
+			[
+				"nuttest",
+				"Nutrition.Tests\\Nutrition.Tests.csproj"
+			],
+			[
+				"direl",
+				"Models\\DirectionLabel.cs"
+			],
+			[
+				"inurepo",
+				"INutritionRepository.cs"
+			],
+			[
+				"ingnu",
+				"Models\\IngredientNutrient.cs"
+			],
+			[
+				"diingre",
+				"Models\\DistrictIngredient.cs"
+			],
+			[
+				"catema",
+				"Models\\Mapping\\CategoryMap.cs"
+			],
+			[
+				"casepma",
+				"Models\\Mapping\\CasePackMap.cs"
+			],
+			[
+				"bathm",
+				"Models\\Mapping\\BatchMap.cs"
+			],
+			[
+				"categma",
+				"Models\\Mapping\\CategoryMap.cs"
+			],
+			[
+				"foodca",
+				"Models\\FoodCategory.cs"
+			],
+			[
+				"buguid",
+				"Models\\BuyingGuide.cs"
+			],
+			[
+				"buygui",
+				"Models\\BuyingGuide.cs"
+			],
+			[
+				"buguima",
+				"Models\\Mapping\\BuyingGuideMap.cs"
+			],
+			[
+				"buygm",
+				"Models\\Mapping\\BuyingGroupMap.cs"
+			],
+			[
+				"ingremap",
+				"Models\\Mapping\\IngredientMap.cs"
+			],
+			[
+				"k12i/edi",
+				"Nutrition.Web\\Views\\K12Items\\Edit.cshtml"
+			],
+			[
+				"inu/in",
+				"Nutrition.Web\\Views\\IngredientUpdates\\Index.cshtml"
+			],
+			[
+				"updacheck",
+				"Nutrition.Web\\Views\\Shared\\Ingredients\\UpdatesChecker.cshtml"
+			],
+			[
+				"site",
+				"Nutrition.Web\\assets\\css\\site.less"
+			],
+			[
+				"k12item/de",
+				"Nutrition.Web\\Views\\K12Items\\Details.cshtml"
+			],
+			[
+				"auto",
+				"AutoUpdate\\AutoUpdate\\Areas\\Installation\\Scripts\\autoupdate.js"
+			],
+			[
+				"_la",
+				"AutoUpdate\\AutoUpdate\\Areas\\Installation\\Views\\Shared\\_Layout.cshtml"
+			],
+			[
+				"fleu.spec",
+				"FluentSecurity.Specification\\Diagnostics\\PublishSpec.cs"
+			],
+			[
+				"loginlay",
+				"src\\Photon.Web\\Views\\LoginLayout.cshtml"
+			],
+			[
+				"phot.le",
+				"src\\Photon.Web\\assets\\css\\photon.less"
+			],
+			[
+				"aldbu.h",
+				"src\\Photon.Web\\assets\\app\\partials\\edit-album.html"
+			],
+			[
+				"dminhom",
+				"src\\Photon.Web\\Views\\AdminHome.cshtml"
+			],
+			[
+				"photh",
+				"src\\Photon.Web\\Views\\PhotonHome.cshtml"
+			],
+			[
+				"logil",
+				"src\\Photon.Web\\Views\\LoginLayout.cshtml"
+			],
+			[
+				"loginla",
+				"src\\Photon.Web\\Views\\LoginLayout.cshtml"
+			],
+			[
+				"photon.le",
+				"src\\Photon.Web\\assets\\css\\photon.less"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 265.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
