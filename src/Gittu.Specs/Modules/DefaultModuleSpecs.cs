@@ -1,75 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gittu.Specs.Helpers;
 using Gittu.Web.Modules;
+using Machine.Specifications;
+using Nancy;
 using Nancy.Security;
 using Nancy.Testing;
-using NSpec;
-
 namespace Gittu.Specs.Modules
 {
-	internal class DefaultModuleSpecs : nspec
+	[Subject("Default Page/Module")]
+	public class when_visiting_default_page
 	{
-		private Action Stop = () => System.Diagnostics.Debugger.Launch();
+		static Browser browser = null;
+		static ConfigurableBootstrapper bootstrapper = null;
+		static BrowserResponse response = null;
 
-		private Action<Nancy.Testing.ConfigurableBootstrapper.ConfigurableBootstrapperConfigurator> DefaultConfiguration = with =>
+		public class user_is_guest_user
 		{
-			with.Module<DefaultModule>();
-			with.RootPathProvider<TestRootPathProvider>();
-		};
-
-		private void when_default_url_is_requested()
-		{
-			context["user is not logged in"] = () =>
+			Establish context = () =>
 			{
-				var bootstrapper = new ConfigurableBootstrapper(with =>
+				bootstrapper = new ConfigurableBootstrapper(with =>
 				{
-					DefaultConfiguration(with);
+					with.Module<DefaultModule>();
 				});
-
-				var browser = new Browser(bootstrapper);
-
-				var response = browser.Get("/", with =>
-				{
-					with.HttpRequest();
-				});
-
-				it["returns guest user view"] = () =>
-				{
-					response.Body["#sign-up"].ShouldExist();
-				};
+				browser = new Browser(bootstrapper);
 			};
 
-			context["user is logged in"] = () =>
+			Because of = () => response = browser.Get("/", with =>
 			{
-				var bootstrapper = new ConfigurableBootstrapper(with =>
+				with.HttpRequest();
+			});
+
+			It should_return_guest_user_view = () => response.Body["#sign-up"].ShouldExist();
+		}
+
+		public class user_is_site_user
+		{
+			Establish context = () =>
+			{
+				bootstrapper = new ConfigurableBootstrapper(with =>
 				{
-					DefaultConfiguration(with);
+					with.Module<DefaultModule>();
 					with.ApplicationStartup((ioc, pipelines) =>
 					{
 						pipelines.BeforeRequest.AddItemToStartOfPipeline(ctx =>
-								{
-									ctx.CurrentUser = new DummyUser();
-									return null;
-								});
+						{
+							ctx.CurrentUser = new DummyUser();
+							return null;
+						});
 					});
 				});
-
-				var browser = new Browser(bootstrapper);
-				var response = browser.Get("/", with =>
-				{
-					with.HttpRequest();
-				});
-
-				it["returns  user home view"] = () =>
-				{
-					response.Body["#user-profile"].ShouldExist();
-				};
+				browser = new Browser(bootstrapper);
 			};
-		}
 
-		private class DummyUser : IUserIdentity
+			Because of = () => response = browser.Get("/", with =>
+			{
+				with.HttpRequest();
+			});
+
+			It should_return_site_user_view = () => response.Body["#user-profile"].ShouldExist();
+		}
+		public class DummyUser : IUserIdentity
 		{
 			public IEnumerable<string> Claims
 			{
@@ -81,5 +72,7 @@ namespace Gittu.Specs.Modules
 				get { return string.Empty; }
 			}
 		}
+
+		
 	}
 }
