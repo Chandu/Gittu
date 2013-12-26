@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Gittu.Web.Modules;
 using Machine.Specifications;
-using Nancy;
 using Nancy.Security;
 using Nancy.Testing;
+
 namespace Gittu.Specs.Modules
 {
-	[Subject("Default Page/Module")]
-	public class when_visiting_default_page
+	[Subject("Visiting Default Page")]
+	public class When_visiting_default_page
 	{
-		static Browser browser = null;
-		static ConfigurableBootstrapper bootstrapper = null;
-		static BrowserResponse response = null;
+		private static Browser browser;
+		private static ConfigurableBootstrapper bootstrapper;
+		private static BrowserResponse response;
 
-		public class user_is_guest_user
+		public class As_a_guest_user
 		{
-			Establish context = () =>
+			private Establish context = () =>
 			{
 				bootstrapper = new ConfigurableBootstrapper(with =>
 				{
@@ -26,17 +25,17 @@ namespace Gittu.Specs.Modules
 				browser = new Browser(bootstrapper);
 			};
 
-			Because of = () => response = browser.Get("/", with =>
+			private Because of = () => response = browser.Get("/", with =>
 			{
 				with.HttpRequest();
 			});
 
-			It should_return_guest_user_view = () => response.Body["#sign-up"].ShouldExist();
+			private It should_return_guest_user_view = () => response.Body["#sign-up"].ShouldExist();
 		}
 
-		public class user_is_site_user
+		public class As_a_logged_user
 		{
-			Establish context = () =>
+			private Establish context = () =>
 			{
 				bootstrapper = new ConfigurableBootstrapper(with =>
 				{
@@ -53,13 +52,14 @@ namespace Gittu.Specs.Modules
 				browser = new Browser(bootstrapper);
 			};
 
-			Because of = () => response = browser.Get("/", with =>
+			private Because of = () => response = browser.Get("/", with =>
 			{
 				with.HttpRequest();
 			});
 
-			It should_return_site_user_view = () => response.Body["#user-profile"].ShouldExist();
+			private It should_return_site_user_view = () => response.Body["#user-profile"].ShouldExist();
 		}
+
 		public class DummyUser : IUserIdentity
 		{
 			public IEnumerable<string> Claims
@@ -72,7 +72,5 @@ namespace Gittu.Specs.Modules
 				get { return string.Empty; }
 			}
 		}
-
-		
 	}
 }
