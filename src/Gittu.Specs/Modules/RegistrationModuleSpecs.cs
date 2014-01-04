@@ -1,4 +1,8 @@
-﻿using Gittu.Web.Modules;
+﻿using System;
+using Gittu.Web.Domain.Entities;
+using Gittu.Web.Mapping;
+using Gittu.Web.Modules;
+using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Nancy;
@@ -6,115 +10,154 @@ using Nancy.Testing;
 
 namespace Gittu.Specs.Modules
 {
-	[Subject("Registration")]
-	public class When_register_url_is_requested
+	public class RegistrationModuleSpecs
 	{
-		static Browser browser;
-		static ConfigurableBootstrapper bootstrapper;
-		static BrowserResponse response;
+		protected static Browser browser;
+		protected static ConfigurableBootstrapper bootstrapper;
+		protected static BrowserResponse response;
 
-		 Establish context = () =>
+		protected Establish context = () =>
 		{
-			bootstrapper = new ConfigurableBootstrapper(with => with.Module<RegisterModule>());
+			bootstrapper = new ConfigurableBootstrapper(with =>
+			{
+				var registrationServiceMock = new Moq.Mock<IRegistrationService>();
+				with.Dependency(registrationServiceMock.Object);
+				with.Module<RegisterModule>();
+			});
 			browser = new Browser(bootstrapper);
 		};
 
-		 Because of = () =>
-		{
-			response = browser.Get("/register", with => with.HttpRequest());
-		};
-
-		It should_return_register_view = () => response.Body["#register-panel"].ShouldExist();
-	}
-
-	[Subject("Registration")]
-	public class When_registering
-	{
-		static Browser browser;
-		static ConfigurableBootstrapper bootstrapper;
-		static BrowserResponse response;
-
-		Establish context = () =>
-			{
-				bootstrapper = new ConfigurableBootstrapper(with => with.Module<RegisterModule>());
-				browser = new Browser(bootstrapper);
-			};
-
-		static void ShouldHaveErroredWith(string message)
+		protected static void ShouldHaveErroredWith(string message)
 		{
 			response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
-			var result = response.Body.DeserializeJson<InvalidInputViewModel>();
+			var result = response.Body.DeserializeJson<InvalidInputResponse>();
 			result.Messages.ShouldNotBeEmpty();
 			result.Messages.Values.ShouldContain(message);
 		}
+	}
 
-		public class With_blank_email
+	[Subject("Registration")]
+	public class When_register_url_is_requested : RegistrationModuleSpecs
+	{
+		private Because of = () =>
+	 {
+		 response = browser.Get("/register", with => with.HttpRequest());
+	 };
+
+		private It should_return_register_view = () => response.Body["#register-panel"].ShouldExist();
+	}
+
+	[Subject("Registration")]
+	public class With_blank_email : RegistrationModuleSpecs
+	{
+		private Because of = () =>
 		{
-			Because of = () =>
+			response = browser.Post("/register", with =>
 			{
-				response = browser.Post("/register", with =>
+				with.HttpRequest();
+				with.FormValue("email", "");
+				with.FormValue("password", "lalalala");
+				with.FormValue("confirmpassword", "lalalala");
+				with.FormValue("username", "bloke");
+			});
+		};
+
+		private It should_return_email_is_required_message = () => ShouldHaveErroredWith("Email address is required.");
+	}
+
+	[Subject("Registration")]
+	public class With_blank_username : RegistrationModuleSpecs
+	{
+		private Because of = () =>
+		{
+			response = browser.Post("/register", with =>
+			{
+				with.HttpRequest();
+				with.FormValue("email", "c@gmail.com");
+				with.FormValue("password", "lalalala");
+				with.FormValue("confirmpassword", "lalalala");
+				with.FormValue("username", "");
+			});
+		};
+
+		private It should_return_user_name_is_required_message = () => ShouldHaveErroredWith("Username is required.");
+	}
+
+	[Subject("Registration")]
+	public class With_blank_password : RegistrationModuleSpecs
+	{
+		private Because of = () =>
+		{
+			response = browser.Post("/register", with =>
+			{
+				with.HttpRequest();
+				with.FormValue("email", "c@gmail.com");
+				with.FormValue("password", "");
+				with.FormValue("confirmpassword", "lalalala");
+				with.FormValue("username", "chandu");
+			});
+		};
+
+		private It should_return_password_is_required_message = () => ShouldHaveErroredWith("Password is required.");
+	}
+
+	[Subject("Registration")]
+	public class With_mismatching_password_and_confirm_password : RegistrationModuleSpecs
+	{
+		private Because of = () =>
+		{
+			response = browser.Post("/register", with =>
+			{
+				with.HttpRequest();
+				with.FormValue("email", "c@gmail.com");
+				with.FormValue("password", "jajajajaja");
+				with.FormValue("confirmpassword", "asdasd");
+				with.FormValue("username", "chandu");
+			});
+		};
+
+		private It should_return_invalid_password_combination_message = () => ShouldHaveErroredWith
+			("Password and Confirm Password donot match.");
+	}
+
+	[Subject("Registration")]
+	public class With_valid_registration_data : RegistrationModuleSpecs
+	{
+		private static Browser browser;
+		private static ConfigurableBootstrapper bootstrapper;
+		private static BrowserResponse response;
+
+		private Establish context = () =>
+			{
+				bootstrapper = new ConfigurableBootstrapper(with =>
 				{
-					with.HttpRequest();
-					with.FormValue("email", "");
-					with.FormValue("password", "lalalala");
-					with.FormValue("confirmpassword", "lalalala");
-					with.FormValue("username", "bloke");
+					var registrationServiceMock = new Moq.Mock<IRegistrationService>();
+					registrationServiceMock
+						.Setup(svc => svc.Register(Moq.It.IsAny<User>(), Moq.It.IsAny<string>()))
+						.Returns(new Tuple<bool, string>(true, string.Empty));
+				AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
+					with.Dependency(registrationServiceMock.Object);
+					with.Module<RegisterModule>();
 				});
+				browser = new Browser(bootstrapper);
 			};
 
-			It should_return_email_is_required_message = () => ShouldHaveErroredWith("The Email field is required.");
-		}
-
-		public class With_blank_username
+		private Because of = () =>
 		{
-			Because of = () =>
+			response = browser.Post("/register", with =>
 			{
-				response = browser.Post("/register", with =>
-				{
-					with.HttpRequest();
-					with.FormValue("email", "c@gmail.com");
-					with.FormValue("password", "lalalala");
-					with.FormValue("confirmpassword", "lalalala");
-					with.FormValue("username", "");
-				});
-			};
+				with.HttpRequest();
+				with.FormValue("email", "c@gmail.com");
+				with.FormValue("password", "jajajajaja");
+				with.FormValue("confirmpassword", "jajajajaja");
+				with.FormValue("username", "chandu");
+			});
+		};
 
-			It should_return_user_name_is_required_message = () => ShouldHaveErroredWith("The UserName field is required.");
-		}
-
-		public class With_blank_password
+		private It should_redirect_to_login_page = () =>
 		{
-			Because of = () =>
-			{
-				response = browser.Post("/register", with =>
-				{
-					with.HttpRequest();
-					with.FormValue("email", "c@gmail.com");
-					with.FormValue("password", "");
-					with.FormValue("confirmpassword", "lalalala");
-					with.FormValue("username", "chandu");
-				});
-			};
-
-			It should_return_password_is_required_message = () => ShouldHaveErroredWith("The Password field is required.");
-		}
-
-		public class With_mismatching_password_and_confirm_password
-		{
-			Because of = () =>
-			{
-				response = browser.Post("/register", with =>
-				{
-					with.HttpRequest();
-					with.FormValue("email", "c@gmail.com");
-					with.FormValue("password", "jajajajaja");
-					with.FormValue("confirmpassword", "asdasd");
-					with.FormValue("username", "chandu");
-				});
-			};
-
-			It should_return_invalid_password_combination_message = () => ShouldHaveErroredWith
-				("Password and Confirm Password donot match.");
-		}
+			response.StatusCode.ShouldEqual(HttpStatusCode.SeeOther);
+			response.ShouldHaveRedirectedTo("login");
+		};
 	}
 }

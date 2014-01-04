@@ -7,14 +7,14 @@ namespace Gittu.Web.Extensions
 {
 	public static class ModelValidatorResultExtensions
 	{
-		public static InvalidInputViewModel ToInvalidInput(this ModelValidationResult modelValidationResult, int status = (int) HttpStatusCode.BadRequest)
+		public static InvalidInputResponse ToInvalidInput(this ModelValidationResult modelValidationResult, int status = (int) HttpStatusCode.BadRequest)
 		{
-			return new InvalidInputViewModel
+			return new InvalidInputResponse
 					{
-						Messages = modelValidationResult.Errors.SelectMany(a => a.MemberNames.Select(b => new
+						Messages = modelValidationResult.Errors.SelectMany(a => a.Value.Select(b => new
 						{
-							PropertyName = b,
-							Message = a.GetMessage(b)
+							PropertyName = a.Key,
+							Message = b.ErrorMessage
 						})).ToDictionary(a => a.PropertyName, a => a.Message),
 						Status = status
 					};

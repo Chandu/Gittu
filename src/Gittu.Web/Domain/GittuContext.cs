@@ -12,11 +12,17 @@ namespace Gittu.Web.Domain
 		{
 		}
 
-		private DbSet<Entities.Repository> Repositories { get { return Set<Entities.Repository>(); } }
+		private DbSet<Repository> Repositories { get { return Set<Repository>(); } }
+		private DbSet<User> Users { get { return Set<User>(); } }
 
-		IQueryable<Entities.Repository> IGittuContext.Repositories
+		IQueryable<Repository> IGittuContext.Repositories
 		{
 			get { return Repositories; }
+		}
+
+		IQueryable<User> IGittuContext.Users
+		{
+			get { return Users; }
 		}
 
 		public IDisposable Start()

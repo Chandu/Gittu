@@ -6,5 +6,6 @@ namespace Gittu.Web.Domain
 	public interface IGittuContext
 	{
 		IQueryable<Repository> Repositories { get;  }
+		IQueryable<User> Users { get; }
 	}
 }
