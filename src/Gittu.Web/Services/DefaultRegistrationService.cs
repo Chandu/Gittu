@@ -8,14 +8,16 @@ namespace Gittu.Web.Services
 {
 	public class DefaultRegistrationService : IRegistrationService
 	{
+		public IUnitOfWork UnitOfWork { get; set; }
 		public IGittuContext GittuContext { get; set; }
 
-		public DefaultRegistrationService(IGittuContext gittuContext)
+		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext)
 		{
+			UnitOfWork = unitOfWork;
 			GittuContext = gittuContext;
 		}
 
-		public Tuple<bool, string> Register(User user, string password)
+		public RegistrationResult Register(User user, string password)
 		{
 			if(user == null)
 			{
@@ -29,7 +31,12 @@ namespace Gittu.Web.Services
 			{
 				throw new UserNameExistsException();
 			}
-			throw new NotImplementedException();
+			UnitOfWork.Attach(user);
+			return new RegistrationResult
+			{
+				IsSuccess = true,
+				Message = "User registered successfully"
+			};
 		}
 	}
 }

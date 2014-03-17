@@ -24,7 +24,7 @@ namespace Gittu.Web.Modules
 				{
 					var user = Mapper.Map<User>(registrationData);
 					var registrationResult  = registrationService.Register(user, registrationData.Password);
-					if (registrationResult.Item1)
+					if (registrationResult.IsSuccess)
 					{
 						return Response.AsRedirect("login");	
 					}
@@ -32,7 +32,7 @@ namespace Gittu.Web.Modules
 					{
 						Messages = new Dictionary<string, string>
 						{
-							{"", registrationResult.Item2}
+							{"", registrationResult.Message}
 						},
 						Status = (int)HttpStatusCode.BadRequest 
 					}, HttpStatusCode.BadRequest);

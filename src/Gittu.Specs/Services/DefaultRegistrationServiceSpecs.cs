@@ -18,7 +18,8 @@ namespace Gittu.Specs.Services
 		Establish context = () =>
 		{
 			var gittuContextMock = new Mock<IGittuContext>();
-			RegistrationService = new DefaultRegistrationService(gittuContextMock.Object);
+			var uowMock = new Mock<IUnitOfWork>();
+			RegistrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
 		};
 
 		Cleanup after = () =>
@@ -27,7 +28,7 @@ namespace Gittu.Specs.Services
 		};
 	}
 
-	[Subject(typeof(DefaultRegistrationService))]
+	[Subject(typeof(DefaultRegistrationService), "When register method is called")]
 	public class When_register_method_is_called:DefaultRegistrationServiceSpecs
 	{
 		public class With_null_as_user_parameter
@@ -71,6 +72,7 @@ namespace Gittu.Specs.Services
 			Establish context = () =>
 			{
 				var gittuContextMock = new Mock<IGittuContext>();
+				var uowMock = new Mock<IUnitOfWork>();
 				var dummyUsers = new[]
 				{
 					new User
@@ -81,7 +83,7 @@ namespace Gittu.Specs.Services
 					}
 				};
 				gittuContextMock.Setup(a => a.Users).Returns(dummyUsers.AsQueryable());
-				RegistrationService = new DefaultRegistrationService(gittuContextMock.Object);
+				RegistrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
 			};
 
 			Because of = () => 
@@ -98,7 +100,17 @@ namespace Gittu.Specs.Services
 
 		public class With_valid_registration_information
 		{
-			It should_register_the_user_successfully;
+			static RegistrationResult registrationResult;
+			Because of = () =>
+			{
+				registrationResult  = RegistrationService.Register(new User
+					{
+						EMail = "test@gmail.com",
+						Id = 1,
+						UserName = "chandu"
+					}, "password");
+			};
+			It should_register_the_user_successfully = () => registrationResult.IsSuccess.ShouldEqual(true);
 		}
 	}
 }

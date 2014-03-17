@@ -134,7 +134,7 @@ namespace Gittu.Specs.Modules
 					var registrationServiceMock = new Moq.Mock<IRegistrationService>();
 					registrationServiceMock
 						.Setup(svc => svc.Register(Moq.It.IsAny<User>(), Moq.It.IsAny<string>()))
-						.Returns(new Tuple<bool, string>(true, string.Empty));
+						.Returns(new RegistrationResult(true, string.Empty));
 				AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
 					with.Dependency(registrationServiceMock.Object);
 					with.Module<RegisterModule>();
