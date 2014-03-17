@@ -46,7 +46,7 @@ namespace Gittu.Specs.Services
 				(argumentException as ArgumentException).ParamName.ShouldEqual("user");
 			};
 		}
-5
+
 		public class With_blank_string_as_password
 		{
 			static Exception argumentException;
@@ -92,10 +92,8 @@ namespace Gittu.Specs.Services
 					EMail="some@gmail.com"
 				}, "somepassword"));			
 			};
-			It should_throw_user_exists_exception = () =>
-			{
+			It should_throw_user_exists_exception = () => 
 				userNameExistsException.ShouldBeOfType<UserNameExistsException>();
-			};
 		}
 
 		public class With_valid_registration_information
