@@ -13,13 +13,13 @@ namespace Gittu.Specs.Services
 	[Subject("Default Registration service")]
 	public abstract class DefaultRegistrationServiceSpecs
 	{
-		protected static DefaultRegistrationService RegistrationService;
+		protected static DefaultRegistrationService _registrationService;
 
 		Establish context = () =>
 		{
 			var gittuContextMock = new Mock<IGittuContext>();
 			var uowMock = new Mock<IUnitOfWork>();
-			RegistrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
+			_registrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
 		};
 
 		Cleanup after = () =>
@@ -28,46 +28,37 @@ namespace Gittu.Specs.Services
 		};
 	}
 
-	[Subject(typeof(DefaultRegistrationService), "When register method is called")]
+	[Subject(typeof(DefaultRegistrationService), ".Register")]
 	public class When_register_method_is_called:DefaultRegistrationServiceSpecs
 	{
 		public class With_null_as_user_parameter
 		{
-			static Exception argumentException;
+			static Exception _argumentException;
 
 			Because of = () =>
-			{
-				argumentException = Catch.Exception(() => RegistrationService.Register(null, "somepassword"));
-			};
+				_argumentException = Catch.Exception(() => _registrationService.Register(null, "somepassword"));
+			
 
 			It should_throw_user_argument_error = () =>
-			{
-				argumentException.ShouldNotBeNull();
-				argumentException.ShouldBeOfType<ArgumentException>();
-				(argumentException as ArgumentException).ParamName.ShouldEqual("user");
-			};
+				(_argumentException as ArgumentException).ParamName.ShouldEqual("user");
+			
 		}
 
-		public class With_blank_string_as_password
+		public class when_registering_with_blank_string_as_password
 		{
-			static Exception argumentException;
+			static Exception _argumentException;
 
 			Because of = () =>
-			{
-				argumentException = Catch.Exception(() => RegistrationService.Register(new User(), ""));
-			};
-
+				_argumentException = Catch.Exception(() => _registrationService.Register(new User(), ""));
+			
 			It should_throw_password_argument_error = () =>
-			{
-				argumentException.ShouldNotBeNull();
-				argumentException.ShouldBeOfType<ArgumentException>();
-				(argumentException as ArgumentException).ParamName.ShouldEqual("password");
-			};
+				(_argumentException as ArgumentException).ParamName.ShouldEqual("password");
+			
 		}
 
-		public class With_already_used_UserName
+		public class when_registering_with_duplicate_UserName
 		{
-			static Exception userNameExistsException;
+			static Exception _userNameExistsException;
 
 			Establish context = () =>
 			{
@@ -83,34 +74,35 @@ namespace Gittu.Specs.Services
 					}
 				};
 				gittuContextMock.Setup(a => a.Users).Returns(dummyUsers.AsQueryable());
-				RegistrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
+				_registrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
 			};
 
 			Because of = () => 
 			{
-				userNameExistsException = Catch.Exception(() => RegistrationService.Register(new User
+				_userNameExistsException = Catch.Exception(() => _registrationService.Register(new User
 				{
 					UserName="chandu",
 					EMail="some@gmail.com"
 				}, "somepassword"));			
 			};
 			It should_throw_user_exists_exception = () => 
-				userNameExistsException.ShouldBeOfType<UserNameExistsException>();
+				_userNameExistsException.ShouldBeOfType<UserNameExistsException>();
 		}
 
-		public class With_valid_registration_information
+		public class when_registering_with_valid_registration_information
 		{
-			static RegistrationResult registrationResult;
+			static RegistrationResult _registrationResult;
 			Because of = () =>
 			{
-				registrationResult  = RegistrationService.Register(new User
+				_registrationResult  = _registrationService.Register(new User
 					{
 						EMail = "test@gmail.com",
 						Id = 1,
 						UserName = "chandu"
 					}, "password");
 			};
-			It should_register_the_user_successfully = () => registrationResult.IsSuccess.ShouldEqual(true);
+			It should_register_the_user_successfully = () => 
+				_registrationResult.IsSuccess.ShouldEqual(true);
 		}
 	}
 }

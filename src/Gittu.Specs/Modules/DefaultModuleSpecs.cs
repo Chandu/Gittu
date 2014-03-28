@@ -10,34 +10,35 @@ namespace Gittu.Specs.Modules
 	[Subject("Visiting Default Page")]
 	public class When_visiting_default_page
 	{
-		private static Browser browser;
-		private static ConfigurableBootstrapper bootstrapper;
-		private static BrowserResponse response;
+		private static Browser _browser;
+		private static ConfigurableBootstrapper _bootstrapper;
+		private static BrowserResponse _response;
 
 		public class As_a_guest_user
 		{
 			private Establish context = () =>
 			{
-				bootstrapper = new ConfigurableBootstrapper(with =>
+				_bootstrapper = new ConfigurableBootstrapper(with =>
 				{
 					with.Module<DefaultModule>();
 				});
-				browser = new Browser(bootstrapper);
+				_browser = new Browser(_bootstrapper);
 			};
 
-			private Because of = () => response = browser.Get("/", with =>
+			private Because of = () => _response = _browser.Get("/", with =>
 			{
 				with.HttpRequest();
 			});
 
-			private It should_return_guest_user_view = () => response.Body["#sign-up"].ShouldExist();
+			private It should_return_guest_user_view = () =>
+				_response.Body["#sign-up"].ShouldExist();
 		}
 
 		public class As_a_logged_user
 		{
 			private Establish context = () =>
 			{
-				bootstrapper = new ConfigurableBootstrapper(with =>
+				_bootstrapper = new ConfigurableBootstrapper(with =>
 				{
 					with.Module<DefaultModule>();
 					with.ApplicationStartup((ioc, pipelines) =>
@@ -49,15 +50,16 @@ namespace Gittu.Specs.Modules
 						});
 					});
 				});
-				browser = new Browser(bootstrapper);
+				_browser = new Browser(_bootstrapper);
 			};
 
-			private Because of = () => response = browser.Get("/", with =>
+			private Because of = () => _response = _browser.Get("/", with =>
 			{
 				with.HttpRequest();
 			});
 
-			private It should_return_site_user_view = () => response.Body["#user-profile"].ShouldExist();
+			private It should_return_site_user_view = () => 
+				_response.Body["#user-profile"].ShouldExist();
 		}
 
 		public class DummyUser : IUserIdentity
