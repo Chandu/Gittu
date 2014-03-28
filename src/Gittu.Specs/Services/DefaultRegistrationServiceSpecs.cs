@@ -16,11 +16,19 @@ namespace Gittu.Specs.Services
 		protected static DefaultRegistrationService _registrationService;
 		protected static Mock<IUnitOfWork> _uowMock;
 		protected static Mock<IGittuContext> _gittuContext;
+		protected static Mock<IMailService> _mailServiceMock;
+		protected static IQueryable<User> _fakeUsers = Enumerable.Empty<User>().AsQueryable();
+
 		Establish context = () =>
 		{
 			_gittuContext = new Mock<IGittuContext>();
 			_uowMock  = new Mock<IUnitOfWork>();
-			_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object);
+			_mailServiceMock = new Mock<IMailService>();
+			_gittuContext
+				.Setup(a => a.Users)
+				.Returns(() => _fakeUsers);
+
+			_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object, _mailServiceMock.Object);
 		};
 
 		Cleanup after = () =>
@@ -30,9 +38,9 @@ namespace Gittu.Specs.Services
 	}
 
 	[Subject(typeof(DefaultRegistrationService), ".Register")]
-	public class When_register_method_is_called:DefaultRegistrationServiceSpecs
+	public class When_register_method_is_called : DefaultRegistrationServiceSpecs
 	{
-		public class With_null_as_user_parameter
+		public class With_null_as_user_parameter 
 		{
 			static Exception _argumentException;
 
@@ -60,22 +68,16 @@ namespace Gittu.Specs.Services
 		public class when_registering_with_duplicate_UserName
 		{
 			static Exception _userNameExistsException;
-
+			static Func<IQueryable<User>> _dummyUsersFn;
 			Establish context = () =>
 			{
-				var gittuContextMock = new Mock<IGittuContext>();
-				var uowMock = new Mock<IUnitOfWork>();
-				var dummyUsers = new[]
-				{
-					new User
-					{
+				_fakeUsers = new[]{
+					new User{
 						EMail = "test@gmail.com",
 						Id = 1,
 						UserName = "chandu"
 					}
-				};
-				gittuContextMock.Setup(a => a.Users).Returns(dummyUsers.AsQueryable());
-				_registrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
+				}.AsQueryable();	
 			};
 
 			Because of = () => 
@@ -97,6 +99,7 @@ namespace Gittu.Specs.Services
 
 			Establish context = () =>
 			{
+				_fakeUsers = Enumerable.Empty<User>().AsQueryable(); 
 				_user = new User
 					{
 						EMail = "test@gmail.com",
@@ -107,7 +110,13 @@ namespace Gittu.Specs.Services
 				_uowMock
 					.Setup(a => a.Attach(_user))
 					.Verifiable();
-				_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object);
+
+				_mailServiceMock
+					.Setup(a => a.SendMailAsync(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>()))
+					.Verifiable();
+
+				_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object, _mailServiceMock.Object);
+
 			};
 
 			Because of = () =>
@@ -125,6 +134,10 @@ namespace Gittu.Specs.Services
 
 			It should_register_the_user_successfully = () => 
 				_registrationResult.IsSuccess.ShouldEqual(true);
+
+			It should_send_registration_email_to_user = () =>
+				_mailServiceMock.Verify();
+			
 		}
 	}
 }

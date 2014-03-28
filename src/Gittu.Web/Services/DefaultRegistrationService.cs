@@ -11,11 +11,13 @@ namespace Gittu.Web.Services
 	{
 		public IUnitOfWork UnitOfWork { get; set; }
 		public IGittuContext GittuContext { get; set; }
+		public IMailService MailService { get; set; }
 
-		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext)
+		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService)
 		{
 			UnitOfWork = unitOfWork;
 			GittuContext = gittuContext;
+			MailService = mailService;
 		}
 
 		public RegistrationResult Register(User user, string password)
@@ -36,6 +38,7 @@ namespace Gittu.Web.Services
 			user.Salt = saltToUse;
 			user.Password = Hasher.Hash(password, saltToUse);
 			UnitOfWork.Attach(user);
+			MailService.SendMailAsync(user.EMail, "Thanks for signing up", "Some body");
 			return new RegistrationResult
 			{
 				IsSuccess = true,
