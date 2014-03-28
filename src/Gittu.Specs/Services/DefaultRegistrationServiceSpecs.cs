@@ -14,12 +14,13 @@ namespace Gittu.Specs.Services
 	public abstract class DefaultRegistrationServiceSpecs
 	{
 		protected static DefaultRegistrationService _registrationService;
-
+		protected static Mock<IUnitOfWork> _uowMock;
+		protected static Mock<IGittuContext> _gittuContext;
 		Establish context = () =>
 		{
-			var gittuContextMock = new Mock<IGittuContext>();
-			var uowMock = new Mock<IUnitOfWork>();
-			_registrationService = new DefaultRegistrationService(uowMock.Object, gittuContextMock.Object);
+			_gittuContext = new Mock<IGittuContext>();
+			_uowMock  = new Mock<IUnitOfWork>();
+			_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object);
 		};
 
 		Cleanup after = () =>
@@ -92,15 +93,36 @@ namespace Gittu.Specs.Services
 		public class when_registering_with_valid_registration_information
 		{
 			static RegistrationResult _registrationResult;
-			Because of = () =>
+			static User _user;
+
+			Establish context = () =>
 			{
-				_registrationResult  = _registrationService.Register(new User
+				_user = new User
 					{
 						EMail = "test@gmail.com",
 						Id = 1,
 						UserName = "chandu"
-					}, "password");
+					};
+				_uowMock = new Mock<IUnitOfWork>();
+				_uowMock
+					.Setup(a => a.Attach(_user))
+					.Verifiable();
+				_registrationService = new DefaultRegistrationService(_uowMock.Object, _gittuContext.Object);
 			};
+
+			Because of = () =>
+				_registrationResult  = _registrationService.Register(_user, "password");
+		
+
+			It should_hash_the_password_for_storage = () =>
+			{
+				_user.Password.ShouldNotBeEmpty();
+				_user.Salt.ShouldNotBeEmpty();
+			};
+
+			It should_have_called_UnitOfWork_Attach = () =>
+				_uowMock.Verify();
+
 			It should_register_the_user_successfully = () => 
 				_registrationResult.IsSuccess.ShouldEqual(true);
 		}

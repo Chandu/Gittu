@@ -124,6 +124,7 @@
     <Compile Include="Modules\RegisterModule.cs" />
     <Compile Include="Modules\RepositoriesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\Hasher.cs" />
     <Compile Include="Services\DefaultRegistrationService.cs" />
     <Compile Include="Services\IRegistrationService.cs" />
     <Compile Include="Services\IRepoFileService.cs" />

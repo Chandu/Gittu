@@ -3,6 +3,7 @@ using System.Linq;
 using Gittu.Web.Domain;
 using Gittu.Web.Domain.Entities;
 using Gittu.Web.Exceptions;
+using Gittu.Web.Security;
 
 namespace Gittu.Web.Services
 {
@@ -31,6 +32,9 @@ namespace Gittu.Web.Services
 			{
 				throw new DuplicateUserExistsException();
 			}
+			var saltToUse = Hasher.GenerateSalt();
+			user.Salt = saltToUse;
+			user.Password = Hasher.Hash(password, saltToUse);
 			UnitOfWork.Attach(user);
 			return new RegistrationResult
 			{
