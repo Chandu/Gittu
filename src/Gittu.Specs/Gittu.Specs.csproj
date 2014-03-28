@@ -94,7 +94,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\BrowserResponseExtensions.cs" />
     <Compile Include="Modules\DefaultModuleSpecs.cs" />
+    <Compile Include="Modules\LoginModuleSpecs.cs" />
     <Compile Include="Modules\RegistrationModuleSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DefaultRegistrationServiceSpecs.cs" />

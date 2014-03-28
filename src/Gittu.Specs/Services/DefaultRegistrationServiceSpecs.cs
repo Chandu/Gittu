@@ -89,7 +89,7 @@ namespace Gittu.Specs.Services
 				}, "somepassword"));			
 			};
 			It should_throw_user_exists_exception = () => 
-				_userNameExistsException.ShouldBeOfType<DuplicateUserExistsException>();
+				_userNameExistsException.ShouldBeAssignableTo<DuplicateUserExistsException>();
 		}
 
 		public class when_registering_with_valid_registration_information

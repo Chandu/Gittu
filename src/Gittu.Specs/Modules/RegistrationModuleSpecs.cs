@@ -2,9 +2,7 @@
 using Gittu.Web.Mapping;
 using Gittu.Web.Modules;
 using Gittu.Web.Services;
-using Gittu.Web.ViewModels;
 using Machine.Specifications;
-using Nancy;
 using Nancy.Testing;
 
 namespace Gittu.Specs.Modules
@@ -14,25 +12,17 @@ namespace Gittu.Specs.Modules
 		protected static Browser _browser;
 		protected static ConfigurableBootstrapper _bootstrapper;
 		protected static BrowserResponse _response;
-
+		protected static Moq.Mock<IRegistrationService> _registrationServiceMock;
 		protected Establish context = () =>
 		{
 			_bootstrapper = new ConfigurableBootstrapper(with =>
 			{
-				var registrationServiceMock = new Moq.Mock<IRegistrationService>();
-				with.Dependency(registrationServiceMock.Object);
+				_registrationServiceMock = new Moq.Mock<IRegistrationService>();
+				with.Dependency(_registrationServiceMock.Object);
 				with.Module<RegisterModule>();
 			});
 			_browser = new Browser(_bootstrapper);
 		};
-
-		protected static void ShouldHaveErroredWith(string message)
-		{
-			_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
-			var result = _response.Body.DeserializeJson<InvalidInputResponse>();
-			result.Messages.ShouldNotBeEmpty();
-			result.Messages.Values.ShouldContain(message);
-		}
 	}
 
 	[Subject("Registration")]
@@ -40,8 +30,8 @@ namespace Gittu.Specs.Modules
 	{
 		private Because of = () =>
 		 _response = _browser.Get("/register", with => with.HttpRequest());
-	 
-		private It should_return_register_view = () => 
+
+		private It should_return_register_view = () =>
 			_response.Body["#register-panel"].ShouldExist();
 	}
 
@@ -60,8 +50,8 @@ namespace Gittu.Specs.Modules
 			});
 		};
 
-		private It should_return_email_is_required_message = () => 
-			ShouldHaveErroredWith("Email address is required.");
+		private It should_return_email_is_required_message = () =>
+			_response.ShouldHaveErroredWith("Email address is required.");
 	}
 
 	[Subject("Registration")]
@@ -79,8 +69,8 @@ namespace Gittu.Specs.Modules
 			});
 		};
 
-		private It should_return_user_name_is_required_message = () => 
-			ShouldHaveErroredWith("Username is required.");
+		private It should_return_user_name_is_required_message = () =>
+			_response.ShouldHaveErroredWith("Username is required.");
 	}
 
 	[Subject("Registration")]
@@ -98,8 +88,8 @@ namespace Gittu.Specs.Modules
 			});
 		};
 
-		private It should_return_password_is_required_message = () => 
-			ShouldHaveErroredWith("Password is required.");
+		private It should_return_password_is_required_message = () =>
+			_response.ShouldHaveErroredWith("Password is required.");
 	}
 
 	[Subject("Registration")]
@@ -117,24 +107,23 @@ namespace Gittu.Specs.Modules
 			});
 		};
 
-		private It should_return_invalid_password_combination_message = () => 
-			ShouldHaveErroredWith("Password and Confirm Password donot match.");
+		private It should_return_invalid_password_combination_message = () =>
+			_response.ShouldHaveErroredWith("Password and Confirm Password donot match.");
 	}
 
 	[Subject("Registration")]
 	public class With_valid_registration_data : RegistrationModuleSpecs
 	{
-
 		private Establish context = () =>
 			{
 				_bootstrapper = new ConfigurableBootstrapper(with =>
 				{
-					var registrationServiceMock = new Moq.Mock<IRegistrationService>();
-					registrationServiceMock
+					_registrationServiceMock = new Moq.Mock<IRegistrationService>();
+					_registrationServiceMock
 						.Setup(svc => svc.Register(Moq.It.IsAny<User>(), Moq.It.IsAny<string>()))
 						.Returns(new RegistrationResult(true, string.Empty));
-				AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
-					with.Dependency(registrationServiceMock.Object);
+					AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
+					with.Dependency(_registrationServiceMock.Object);
 					with.Module<RegisterModule>();
 				});
 				_browser = new Browser(_bootstrapper);
@@ -153,9 +142,6 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_redirect_to_login_page = () =>
-		{
-			_response.StatusCode.ShouldEqual(HttpStatusCode.SeeOther);
 			_response.ShouldHaveRedirectedTo("login");
-		};
 	}
 }

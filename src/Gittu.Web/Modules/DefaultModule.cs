@@ -8,11 +8,7 @@ namespace Gittu.Web.Modules
 		{
 			Get["/"] = _ =>
 			{
-				if (Context.CurrentUser != null)
-				{
-					return View["Home.html"];
-				}
-				return View["GuestHome.html"];
+				return Context.CurrentUser != null ? View["Home"] : View["GuestHome"];
 			};
 		}
 	}

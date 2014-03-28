@@ -15,9 +15,9 @@ namespace Gittu.Web.Modules
 		public RegisterModule(IRegistrationService registrationService)
 			: base("/register")
 		{
-			Get["/"] = parameters => View["Register.html"];
+			Get["/"] = _ => View["Register.html"];
 
-			Post["/"] = parameters =>
+			Post["/"] = _ =>
 			{
 				var registrationData = this.BindAndValidate<RegisterViewModel>();
 				if(ModelValidationResult.IsValid)

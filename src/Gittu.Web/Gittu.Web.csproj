@@ -97,6 +97,9 @@
     <Content Include="public\js\vendor\angular.js" />
     <Content Include="public\js\vendor\lodash.js" />
     <Content Include="public\js\vendor\modernizr-2.6.1.min.js" />
+    <Content Include="Views\Login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Register.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -121,19 +124,24 @@
     <Compile Include="Mapping\RegisterViewModelProfile.cs" />
     <Compile Include="Mapping\RepositoryProfile.cs" />
     <Compile Include="Modules\DefaultModule.cs" />
+    <Compile Include="Modules\LoginModule.cs" />
     <Compile Include="Modules\RegisterModule.cs" />
     <Compile Include="Modules\RepositoriesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Hasher.cs" />
     <Compile Include="Services\DefaultRegistrationService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IMailService.cs" />
     <Compile Include="Services\IRegistrationService.cs" />
     <Compile Include="Services\IRepoFileService.cs" />
     <Compile Include="Services\IRepositoryProvider.cs" />
+    <Compile Include="Services\LoginResult.cs" />
     <Compile Include="Services\RegistrationResult.cs" />
     <Compile Include="Services\RepositoryProvider.cs" />
+    <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
     <Compile Include="ViewModels\InvalidInputResponse.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\RepositoryViewModel.cs" />
   </ItemGroup>
