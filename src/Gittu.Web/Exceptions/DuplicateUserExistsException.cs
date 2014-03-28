@@ -2,7 +2,7 @@
 
 namespace Gittu.Web.Exceptions
 {
-	public class UserNameExistsException:Exception
+	public class DuplicateUserExistsException:Exception
 	{
 	}
 }

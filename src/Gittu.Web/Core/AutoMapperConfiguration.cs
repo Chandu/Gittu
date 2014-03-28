@@ -5,9 +5,9 @@ using AutoMapper;
 namespace Gittu.Web.Core
 {
 	//http://stackoverflow.com/questions/11724326/automatic-discovery-of-automapper-configurations
-	public static class AutoMapperConfiguration
+	static class AutoMapperConfiguration
 	{
-		public static void Configure()
+		internal static void Configure()
 		{
 			Mapper.Initialize(x => GetConfiguration(Mapper.Configuration));
 		}

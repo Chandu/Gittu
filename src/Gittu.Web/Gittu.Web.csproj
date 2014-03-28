@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Core\AutoMapperConfiguration.cs" />
     <Compile Include="Core\GittuNancyBootstrapper.cs" />
+    <Compile Include="Domain\GittuUnitOfWork.cs" />
     <Compile Include="Domain\Entities\Enums.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />
     <Compile Include="Domain\Entities\Repository.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="Domain\GittuContext.cs" />
     <Compile Include="Domain\IGittuContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
-    <Compile Include="Exceptions\UserNameExistsException.cs" />
+    <Compile Include="Exceptions\DuplicateUserExistsException.cs" />
     <Compile Include="Extensions\ModelValidatorResultExtensions.cs" />
     <Compile Include="Mapping\RegisterViewModelProfile.cs" />
     <Compile Include="Mapping\RepositoryProfile.cs" />

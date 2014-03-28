@@ -29,7 +29,7 @@ namespace Gittu.Web.Services
 			}
 			if(GittuContext.Users.Any(a => a.UserName == user.UserName))
 			{
-				throw new UserNameExistsException();
+				throw new DuplicateUserExistsException();
 			}
 			UnitOfWork.Attach(user);
 			return new RegistrationResult
