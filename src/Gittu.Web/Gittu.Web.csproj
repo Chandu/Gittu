@@ -89,15 +89,6 @@
       <Link>AutoMapper.Net4.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\css\fonts\font-awesome\fontawesome-webfont.svg" />
-    <Content Include="public\css\main.css" />
-    <Content Include="public\css\gittu.css" />
-    <Content Include="public\img\navy_blue.png" />
-    <Content Include="public\img\partey.gif" />
-    <Content Include="public\img\site-logo.png" />
-    <Content Include="public\js\app\gittuApp.js" />
-    <Content Include="public\js\tests\lib\angular-mocks.js" />
-    <Content Include="public\js\vendor\modernizr-2.6.1.min.js" />
     <Content Include="Views\LoginOrSignUp.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -154,52 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="public\css\bootstrap\alerts.less" />
-    <Content Include="public\css\bootstrap\badges.less" />
-    <Content Include="public\css\bootstrap\bootstrap.less" />
-    <Content Include="public\css\bootstrap\breadcrumbs.less" />
-    <Content Include="public\css\bootstrap\button-groups.less" />
-    <Content Include="public\css\bootstrap\buttons.less" />
-    <Content Include="public\css\bootstrap\carousel.less" />
-    <Content Include="public\css\bootstrap\close.less" />
-    <Content Include="public\css\bootstrap\code.less" />
-    <Content Include="public\css\bootstrap\component-animations.less" />
-    <Content Include="public\css\bootstrap\dropdowns.less" />
-    <Content Include="public\css\bootstrap\forms.less" />
-    <Content Include="public\css\bootstrap\glyphicons.less" />
-    <Content Include="public\css\bootstrap\grid.less" />
-    <Content Include="public\css\bootstrap\input-groups.less" />
-    <Content Include="public\css\bootstrap\jumbotron.less" />
-    <Content Include="public\css\bootstrap\labels.less" />
-    <Content Include="public\css\bootstrap\list-group.less" />
-    <Content Include="public\css\bootstrap\media.less" />
-    <Content Include="public\css\bootstrap\mixins.less" />
-    <Content Include="public\css\bootstrap\modals.less" />
-    <Content Include="public\css\bootstrap\navbar.less" />
-    <Content Include="public\css\bootstrap\navs.less" />
-    <Content Include="public\css\bootstrap\normalize.less" />
-    <Content Include="public\css\bootstrap\pager.less" />
-    <Content Include="public\css\bootstrap\pagination.less" />
-    <Content Include="public\css\bootstrap\panels.less" />
-    <Content Include="public\css\bootstrap\popovers.less" />
-    <Content Include="public\css\bootstrap\print.less" />
-    <Content Include="public\css\bootstrap\progress-bars.less" />
-    <Content Include="public\css\bootstrap\responsive-utilities.less" />
-    <Content Include="public\css\bootstrap\scaffolding.less" />
-    <Content Include="public\css\bootstrap\tables.less" />
-    <Content Include="public\css\bootstrap\theme.less" />
-    <Content Include="public\css\bootstrap\thumbnails.less" />
-    <Content Include="public\css\bootstrap\tooltip.less" />
-    <Content Include="public\css\bootstrap\type.less" />
-    <Content Include="public\css\bootstrap\utilities.less" />
-    <Content Include="public\css\bootstrap\variables.less" />
-    <Content Include="public\css\bootstrap\wells.less" />
-    <Content Include="public\css\font-awesome\font-awesome-ie7.less" />
-    <Content Include="public\css\font-awesome\font-awesome.less" />
-    <Content Include="public\css\fonts\font-awesome\fontawesome-webfont.eot" />
-    <Content Include="public\css\fonts\font-awesome\fontawesome-webfont.ttf" />
-    <Content Include="public\css\fonts\font-awesome\fontawesome-webfont.woff" />
-    <Content Include="public\css\gittu.less" />
     <Content Include="Views\Home.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -215,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="public\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,11 @@
+{
+  "name": "Gittu.Web.AssetsManager",
+  "version": "0.0.1",
+  "description": "node based AssetManager for Gittu project",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chandu (Chandra.Vedantham@GMail.com)",
+  "license": "MIT"
+}
