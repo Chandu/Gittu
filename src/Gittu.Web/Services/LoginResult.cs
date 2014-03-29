@@ -1,6 +1,4 @@
-﻿using Gittu.Web.Domain.Entities;
-
-namespace Gittu.Web.Services
+﻿namespace Gittu.Web.Services
 {
 	public class LoginResult
 	{
@@ -17,7 +15,6 @@ namespace Gittu.Web.Services
 		public bool IsSuccess { get; internal set; }
 
 		public string Message { get; internal set; }
-
-		public User User { get; set; }
+		public bool WasUserFound { get; set; }
 	}
 }

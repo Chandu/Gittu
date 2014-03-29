@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Gittu.Specs.Fakes;
 using Gittu.Web.Domain;
 using Gittu.Web.Domain.Entities;
 using Gittu.Web.Exceptions;
@@ -95,12 +96,12 @@ namespace Gittu.Specs.Services
 		public class when_registering_with_valid_registration_information
 		{
 			static RegistrationResult _registrationResult;
-			static User _user;
+			static FakeUser _user;
 
 			Establish context = () =>
 			{
 				_fakeUsers = Enumerable.Empty<User>().AsQueryable(); 
-				_user = new User
+				_user = new FakeUser
 					{
 						EMail = "test@gmail.com",
 						Id = 1,
@@ -108,7 +109,7 @@ namespace Gittu.Specs.Services
 					};
 				_uowMock = new Mock<IUnitOfWork>();
 				_uowMock
-					.Setup(a => a.Attach(_user))
+					.Setup(a => a.Attach(Moq.It.Is<User>(u => u.UserName == "chandu")))
 					.Verifiable();
 
 				_mailServiceMock
@@ -122,12 +123,11 @@ namespace Gittu.Specs.Services
 			Because of = () =>
 				_registrationResult  = _registrationService.Register(_user, "password");
 		
-
 			It should_hash_the_password_for_storage = () =>
-			{
-				_user.Password.ShouldNotBeEmpty();
-				_user.Salt.ShouldNotBeEmpty();
-			};
+				_user.ThePassword.ShouldNotBeEmpty();
+			
+			It should_generate_salt_for_the_passord_hash = () =>
+				_user.TheSalt.ShouldNotBeEmpty();
 
 			It should_have_called_UnitOfWork_Attach = () =>
 				_uowMock.Verify();

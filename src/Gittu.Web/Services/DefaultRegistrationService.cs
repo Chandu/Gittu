@@ -12,12 +12,18 @@ namespace Gittu.Web.Services
 		public IUnitOfWork UnitOfWork { get; set; }
 		public IGittuContext GittuContext { get; set; }
 		public IMailService MailService { get; set; }
+		public IHasher Hasher { get; set; }
 
-		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService)
+		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService):this(unitOfWork, gittuContext, mailService, new SHA256Hasher())
+		{
+			
+		}
+		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService, IHasher hasher)
 		{
 			UnitOfWork = unitOfWork;
 			GittuContext = gittuContext;
 			MailService = mailService;
+			Hasher = hasher;
 		}
 
 		public RegistrationResult Register(User user, string password)
@@ -34,9 +40,9 @@ namespace Gittu.Web.Services
 			{
 				throw new DuplicateUserExistsException();
 			}
-			var saltToUse = Hasher.GenerateSalt();
-			user.Salt = saltToUse;
-			user.Password = Hasher.Hash(password, saltToUse);
+			var saltToUse = HashUtils.GenerateSalt();
+			user.SetSalt(saltToUse);
+			user.SetPassword(Hasher.Hash(password, saltToUse));
 			UnitOfWork.Attach(user);
 			MailService.SendMailAsync(user.EMail, "Thanks for signing up", "Some body");
 			return new RegistrationResult
