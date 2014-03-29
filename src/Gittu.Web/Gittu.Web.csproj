@@ -95,15 +95,13 @@
     <Content Include="public\img\navy_blue.png" />
     <Content Include="public\img\partey.gif" />
     <Content Include="public\img\site-logo.png" />
+    <Content Include="public\js\app\gittuApp.js" />
     <Content Include="public\js\tests\lib\angular-mocks.js" />
-    <Content Include="public\js\vendor\angular-route.js" />
-    <Content Include="public\js\vendor\angular.js" />
-    <Content Include="public\js\vendor\lodash.js" />
     <Content Include="public\js\vendor\modernizr-2.6.1.min.js" />
-    <Content Include="Views\Login.html">
+    <Content Include="Views\LoginOrSignUp.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Register.html">
+    <Content Include="Views\_GuestLayout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\GuestHome.html">
@@ -126,6 +124,7 @@
     <Compile Include="Extensions\ModelValidatorResultExtensions.cs" />
     <Compile Include="Mapping\RegisterViewModelProfile.cs" />
     <Compile Include="Mapping\RepositoryProfile.cs" />
+    <Compile Include="Modules\AccountModule.cs" />
     <Compile Include="Modules\DefaultModule.cs" />
     <Compile Include="Modules\LoginModule.cs" />
     <Compile Include="Modules\RegisterModule.cs" />
@@ -204,10 +203,9 @@
     <Content Include="Views\Home.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Layout.html">
+    <Content Include="Views\_Layout.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\js\vendor\angular.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -217,7 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="public\js\app\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

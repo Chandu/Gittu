@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" ng-app="gittuApp">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Gittu</title>
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
+	<link href="@Path['~/public/css/gittu.css']" rel='stylesheet' type='text/css'>
+	<script src="@Path['~/public/js/vendor/modernizr-2.6.1.min.js']"></script>
+	<style type="text/css">
+		.nav-center {
+			margin:0;
+			float:none;
+		}
+
+		.navbar-inner{
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<!--[if lt IE 7]>
+		<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+	<![endif]-->
+	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#page-navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="@Path["~/"]">
+				Gittu
+			</a>
+			</div>
+			<div class="collapse navbar-collapse" id="page-navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="@Path['~/register']">Sign Up/Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div id="pg">@Section['Body']</div>
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</body>
+</html>

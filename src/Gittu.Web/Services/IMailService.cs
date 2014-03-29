@@ -6,4 +6,12 @@ namespace Gittu.Web.Services
 	{
 		Task SendMailAsync(string address, string subject, string body);
 	}
+
+	class DummyMailService : IMailService
+	{
+		public Task SendMailAsync(string address, string subject, string body)
+		{
+			return Task.Run(() => { });
+		}
+	}
 }

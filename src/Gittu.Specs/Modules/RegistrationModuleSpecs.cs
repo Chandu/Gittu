@@ -30,9 +30,6 @@ namespace Gittu.Specs.Modules
 	{
 		private Because of = () =>
 		 _response = _browser.Get("/register", with => with.HttpRequest());
-
-		private It should_return_register_view = () =>
-			_response.Body["#register-panel"].ShouldExist();
 	}
 
 	[Subject("Registration")]

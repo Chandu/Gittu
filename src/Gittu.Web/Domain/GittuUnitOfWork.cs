@@ -6,6 +6,11 @@ namespace Gittu.Web.Domain
 {
 	internal class GittuUnitOfWork : DbContext, IUnitOfWork
 	{
+		public GittuUnitOfWork(string connectionName)
+			: base(connectionName)
+		{
+		}
+
 		public void Commit()
 		{
 			SaveChanges();

@@ -15,7 +15,6 @@ namespace Gittu.Web.Modules
 			: base("login")
 		{
 			AuthenticationService = authenticationService;
-			Get["/"] = _ => View["Login"];
 			Post["/"] = _ =>
 			{
 				var loginViewModel = this.BindAndValidate<LoginViewModel>();
