@@ -49,7 +49,7 @@ namespace Gittu.Web.Services
 				UnitOfWork.Commit();
 			}
 			
-			MailService.SendMailAsync(user.EMail, "Thanks for signing up", "Some body");
+			MailService.SendMailAsync(user.EMail, "Thanks for signing up.", "Some body");
 			return new RegistrationResult
 			{
 				IsSuccess = true,

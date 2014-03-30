@@ -1,4 +1,5 @@
-﻿using Gittu.Web.ViewModels;
+﻿using System.Linq;
+using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Nancy;
 using Nancy.Testing;
@@ -12,7 +13,7 @@ namespace Gittu.Specs
 			response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 			var result = response.Body.DeserializeJson<InvalidInputResponse>();
 			result.Messages.ShouldNotBeEmpty();
-			result.Messages.Values.ShouldContain(message);
+			result.Messages.Values.SelectMany(a => a).ShouldContain(message);
 		}
 	}
 }

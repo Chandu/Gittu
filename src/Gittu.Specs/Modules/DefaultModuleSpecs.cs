@@ -31,7 +31,7 @@ namespace Gittu.Specs.Modules
 			});
 
 			private It should_return_guest_user_view = () =>
-				_response.Body["#sign-up"].ShouldExist();
+				_response.Body["#what-is-gittu"].ShouldExist();
 		}
 
 		public class As_a_logged_user

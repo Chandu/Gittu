@@ -27,18 +27,11 @@ namespace Gittu.Specs.Modules
 	}
 
 	[Subject("Registration")]
-	public class When_register_url_is_requested : RegistrationModuleSpecs
-	{
-		private Because of = () =>
-		 _response = _browser.Get("/register", with => with.HttpRequest());
-	}
-
-	[Subject("Registration")]
 	public class With_blank_email : RegistrationModuleSpecs
 	{
 		private Because of = () =>
 		{
-			_response = _browser.Post("/register", with =>
+			_response = _browser.Post("/account/register", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("email", "");
@@ -57,7 +50,7 @@ namespace Gittu.Specs.Modules
 	{
 		private Because of = () =>
 		{
-			_response = _browser.Post("/register", with =>
+			_response = _browser.Post("/account/register", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("email", "c@gmail.com");
@@ -76,7 +69,7 @@ namespace Gittu.Specs.Modules
 	{
 		private Because of = () =>
 		{
-			_response = _browser.Post("/register", with =>
+			_response = _browser.Post("/account/register", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("email", "c@gmail.com");
@@ -95,7 +88,7 @@ namespace Gittu.Specs.Modules
 	{
 		private Because of = () =>
 		{
-			_response = _browser.Post("/register", with =>
+			_response = _browser.Post("/account/register", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("email", "c@gmail.com");
@@ -129,7 +122,7 @@ namespace Gittu.Specs.Modules
 
 		private Because of = () =>
 		{
-			_response = _browser.Post("/register", with =>
+			_response = _browser.Post("/account/register", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("email", "c@gmail.com");

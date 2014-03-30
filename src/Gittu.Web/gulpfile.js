@@ -7,7 +7,9 @@ var resouces = {
 	"scripts" :  [
 		"./assets/components/modernizr/modernizr.js",
 		"./assets/components/jquery/jquery.js",
-		"./assets/components/bootstrap/dist/bootstrap.js"
+		"./assets/components/bootstrap/dist/js/bootstrap.js",
+		"./assets/components/json3/lib/json3.js",
+		"./assets/js/*.js"
 	],
 	"styles" : [
 		"./assets/css/gittu.less"

@@ -29,7 +29,7 @@ namespace Gittu.Specs.Modules
 
 		public class with_blank_username
 		{
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "");
@@ -45,7 +45,7 @@ namespace Gittu.Specs.Modules
 
 		public class with_invalid_username_length
 		{
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "ja");
@@ -61,7 +61,7 @@ namespace Gittu.Specs.Modules
 
 		public class with_blank_password
 		{
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "someUser");
@@ -77,7 +77,7 @@ namespace Gittu.Specs.Modules
 
 		public class with_invalid_password_length
 		{
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "jajaja");
@@ -98,7 +98,7 @@ namespace Gittu.Specs.Modules
 				.Returns(new LoginResult(true, "Login successful."))
 				.Verifiable();
 
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "username");
@@ -119,7 +119,7 @@ namespace Gittu.Specs.Modules
 				.Returns(new LoginResult(false, "Invalid password"))
 				.Verifiable();
 
-			private Because of = () => _response = _browser.Post("/login", with =>
+			private Because of = () => _response = _browser.Post("/account/login", with =>
 			{
 				with.HttpRequest();
 				with.FormValue("userName", "username");

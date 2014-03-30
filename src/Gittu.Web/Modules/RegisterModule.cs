@@ -13,9 +13,9 @@ namespace Gittu.Web.Modules
 	public class RegisterModule : NancyModule
 	{
 		public RegisterModule(IRegistrationService registrationService)
-			: base("/register")
+			: base("/account")
 		{
-			Post["/"] = _ =>
+			Post["/register"] = _ =>
 			{
 				var registrationData = this.BindAndValidate<RegisterViewModel>();
 				if(ModelValidationResult.IsValid)
@@ -28,9 +28,9 @@ namespace Gittu.Web.Modules
 					}
 					return Response.AsJson(new InvalidInputResponse
 					{
-						Messages = new Dictionary<string, string>
+						Messages = new Dictionary<string, IEnumerable<string>>
 						{
-							{"", registrationResult.Message}
+							{"", new [] {registrationResult.Message}}
 						},
 						Status = (int)HttpStatusCode.BadRequest 
 					}, HttpStatusCode.BadRequest);

@@ -103,6 +103,11 @@
   <ItemGroup>
     <Compile Include="Core\AutoMapperConfiguration.cs" />
     <Compile Include="Core\GittuNancyBootstrapper.cs" />
+    <Compile Include="Domain\Entities\Mapping\EntityMappingsConfigurator.cs" />
+    <Compile Include="Domain\Entities\Mapping\IEntityMapper.cs" />
+    <Compile Include="Domain\Entities\Mapping\IEntityMappingsConfigurator.cs" />
+    <Compile Include="Domain\Entities\Mapping\MapBase.cs" />
+    <Compile Include="Domain\Entities\Mapping\UserMapping.cs" />
     <Compile Include="Domain\GittuUnitOfWork.cs" />
     <Compile Include="Domain\Entities\Enums.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />

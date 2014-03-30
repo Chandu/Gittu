@@ -1,4 +1,5 @@
 ﻿using Gittu.Web.Domain;
+using Gittu.Web.Domain.Entities.Mapping;
 using Gittu.Web.Security;
 using Gittu.Web.Services;
 using Nancy;
@@ -31,6 +32,7 @@ namespace Gittu.Web.Core
 		protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
 		{
 			container.Register<IAuthenticationService, DefaultAuthenticationService>();
+			container.Register<IEntityMappingsConfigurator, EntityMappingsConfigurator>();
 			
 			container.Register<IRegistrationService, DefaultRegistrationService>();
 			container

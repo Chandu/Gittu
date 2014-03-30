@@ -1,15 +1,32 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Gittu.Web.Domain.Entities;
+using Gittu.Web.Domain.Entities.Mapping;
 
 namespace Gittu.Web.Domain
 {
 	internal class GittuUnitOfWork : DbContext, IUnitOfWork
 	{
-		public GittuUnitOfWork(string connectionName)
-			: base(connectionName)
+		public IEntityMappingsConfigurator EntityMappingsConfigurator { get; set; }
+
+		public GittuUnitOfWork(string connectionName):this(connectionName, new EntityMappingsConfigurator())
 		{
 		}
+
+		public GittuUnitOfWork(string connectionName, IEntityMappingsConfigurator entityMappingsConfigurator)
+			: base(connectionName)
+		{
+			EntityMappingsConfigurator = entityMappingsConfigurator;
+		}
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+			base.OnModelCreating(modelBuilder);
+			EntityMappingsConfigurator.Configure(modelBuilder);
+		}
+
 
 		public void Commit()
 		{

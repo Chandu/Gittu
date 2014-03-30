@@ -12,10 +12,10 @@ namespace Gittu.Web.Modules
 		public IAuthenticationService AuthenticationService { get; set; }
 
 		public LoginModule(IAuthenticationService authenticationService)
-			: base("login")
+			: base("account")
 		{
 			AuthenticationService = authenticationService;
-			Post["/"] = _ =>
+			Post["/login"] = _ =>
 			{
 				var loginViewModel = this.BindAndValidate<LoginViewModel>();
 				if (!ModelValidationResult.IsValid)
@@ -30,9 +30,9 @@ namespace Gittu.Web.Modules
 				}
 				return Response.AsJson(new InvalidInputResponse
 				{
-					Messages = new Dictionary<string, string>
+					Messages = new Dictionary<string, IEnumerable<string>>
 						{
-							{"", loginResult.Message}
+							{"", new [] {loginResult.Message}}
 						},
 					Status = (int)HttpStatusCode.Unauthorized
 				}, HttpStatusCode.Unauthorized);

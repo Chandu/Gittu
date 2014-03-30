@@ -9,6 +9,7 @@ namespace Gittu.Web.Validators
 		{
 			RuleFor(x => x.Email).NotEmpty()
 				.WithMessage("Email address is required.")
+				.Configure(p => p.CascadeMode = CascadeMode.StopOnFirstFailure)
 				.EmailAddress()
 				.WithMessage("Email address is invalid.")
 			;
@@ -16,6 +17,7 @@ namespace Gittu.Web.Validators
 			RuleFor(x => x.Password)
 				.NotEmpty()
 				.WithMessage("Password is required.")
+				.Configure(p => p.CascadeMode = CascadeMode.StopOnFirstFailure)
 				.Length(4, 16)
 				.WithMessage("Password is invalid.")
 				;
@@ -23,6 +25,7 @@ namespace Gittu.Web.Validators
 			RuleFor(x => x.UserName)
 				.NotEmpty()
 				.WithMessage("Username is required.")
+				.Configure(p => p.CascadeMode = CascadeMode.StopOnFirstFailure)
 				.Length(4, 16)
 				.WithMessage("Username is invalid.")
 				;

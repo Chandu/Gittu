@@ -15,7 +15,9 @@ namespace Gittu.Web.Extensions
 						{
 							PropertyName = a.Key,
 							Message = b.ErrorMessage
-						})).ToDictionary(a => a.PropertyName, a => a.Message),
+						}))
+						.GroupBy(a => a.PropertyName)
+						.ToDictionary(a => a.Key, a => a.Select(b => b.Message)),
 						Status = status
 					};
 		}
