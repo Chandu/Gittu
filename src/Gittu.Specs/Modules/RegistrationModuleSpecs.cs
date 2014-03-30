@@ -3,6 +3,7 @@ using Gittu.Web.Mapping;
 using Gittu.Web.Modules;
 using Gittu.Web.Services;
 using Machine.Specifications;
+using Nancy;
 using Nancy.Testing;
 
 namespace Gittu.Specs.Modules
@@ -138,6 +139,10 @@ namespace Gittu.Specs.Modules
 			});
 		};
 
+		private It should_successfully_register_the_user = () =>
+			_response.StatusCode.ShouldEqual(HttpStatusCode.SeeOther);
+
+		
 		private It should_redirect_to_login_page = () =>
 			_response.ShouldHaveRedirectedTo("login");
 	}

@@ -112,6 +112,10 @@ namespace Gittu.Specs.Services
 					.Setup(a => a.Attach(Moq.It.Is<User>(u => u.UserName == "chandu")))
 					.Verifiable();
 
+				_uowMock
+					.Setup(a => a.Commit())
+					.Verifiable();
+
 				_mailServiceMock
 					.Setup(a => a.SendMailAsync(Moq.It.IsAny<string>(), Moq.It.IsAny<string>(), Moq.It.IsAny<string>()))
 					.Verifiable();
@@ -129,7 +133,7 @@ namespace Gittu.Specs.Services
 			It should_generate_salt_for_the_passord_hash = () =>
 				_user.TheSalt.ShouldNotBeEmpty();
 
-			It should_have_called_UnitOfWork_Attach = () =>
+			It should_have_saved_user_to_datastore = () =>
 				_uowMock.Verify();
 
 			It should_register_the_user_successfully = () => 

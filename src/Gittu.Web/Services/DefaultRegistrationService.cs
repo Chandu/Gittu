@@ -43,7 +43,12 @@ namespace Gittu.Web.Services
 			var saltToUse = HashUtils.GenerateSalt();
 			user.SetSalt(saltToUse);
 			user.SetPassword(Hasher.Hash(password, saltToUse));
-			UnitOfWork.Attach(user);
+			using (UnitOfWork.Start())
+			{
+				UnitOfWork.Attach(user);
+				UnitOfWork.Commit();
+			}
+			
 			MailService.SendMailAsync(user.EMail, "Thanks for signing up", "Some body");
 			return new RegistrationResult
 			{
