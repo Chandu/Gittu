@@ -8,6 +8,11 @@ namespace Gittu.Web.Domain
 {
 	internal class GittuUnitOfWork : DbContext, IUnitOfWork
 	{
+		static GittuUnitOfWork()
+		{
+			Database.SetInitializer<GittuUnitOfWork>(null);
+		}
+
 		public IEntityMappingsConfigurator EntityMappingsConfigurator { get; set; }
 
 		public GittuUnitOfWork(string connectionName):this(connectionName, new EntityMappingsConfigurator())

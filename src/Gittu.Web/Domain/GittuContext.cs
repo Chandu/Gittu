@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Gittu.Web.Domain.Entities;
@@ -9,9 +8,15 @@ namespace Gittu.Web.Domain
 {
 	internal class GittuContext : DbContext, IGittuContext
 	{
+		static GittuContext()
+		{
+			Database.SetInitializer<GittuContext>(null);
+		}
+
 		public IEntityMappingsConfigurator EntityMappingsConfigurator { get; set; }
 
-		public GittuContext(string connectionName):this(connectionName, new EntityMappingsConfigurator())
+		public GittuContext(string connectionName)
+			: this(connectionName, new EntityMappingsConfigurator())
 		{
 		}
 
@@ -41,6 +46,5 @@ namespace Gittu.Web.Domain
 			base.OnModelCreating(modelBuilder);
 			EntityMappingsConfigurator.Configure(modelBuilder);
 		}
-
 	}
 }

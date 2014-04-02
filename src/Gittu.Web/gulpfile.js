@@ -1,7 +1,9 @@
-var gulp = require('gulp')
-	less = require('gulp-less'),
-	path = require('path'),
-	watch = require('gulp-watch');
+var gulp = require('gulp');
+var	less = require('gulp-less');
+var	path = require('path');
+var	watch = require('gulp-watch');
+var sys = require('sys');
+var exec = require('child_process').exec;
 
 var resouces = {
 	"scripts" :  [
@@ -36,16 +38,15 @@ gulp.task('styles', function () {
 			return files.pipe(less())
 				.pipe(gulp.dest('./public/css/'));
 		}));
-
 });
 
 gulp.task('images', function () {
-	gulp.src(resouces.styles)
-		.pipe(less())
-		.pipe(gulp.dest('./public/css/'));
-
 	gulp.src(resouces.images)
 		.pipe(gulp.dest('./public/img/'));
+});
+
+gulp.task('migrate', function () {
+	sys.puts('for now use rake');
 });
 
 // task to run while actively developing

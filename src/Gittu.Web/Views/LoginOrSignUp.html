@@ -34,11 +34,10 @@
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="container" id="login-signup-container">
 		<div id="pg">
 			<div class="row">
 				<div class="col-md-3">
-					<div id="errors-pane" class="vcenter"></div>
 				</div>
 				<div class="col-md-6">
 					<ul class="nav nav-pills">
@@ -48,6 +47,8 @@
 					<div class="tab-content">
 						<div id="register" class="tab-pane active">
 							<form role="form" action="@Path['~/account/register']" method="post" name="register-form" id="register-form">
+								<div class="errors-pane hide">
+								</div>
 								<div class="form-group">
 									<label for="emailAddress">Email address</label>
 									<input type="email" class="form-control" name="emailAddress" placeholder="Enter email">
@@ -71,14 +72,15 @@
 
 									<button type="submit" class="btn btn-default btn-primary pull-right">Submit</button>
 								</div>
-								
 							</form>
 						</div>
 						<div id="login" class="tab-pane">
 							<form role="form" action="@Path['~/account/login']" method="post" name="login-form" id="login-form">
+								<div class="errors-pane hide">
+								</div>
 								<div class="form-group">
-									<label for="username">Username</label>
-									<input type="email" class="form-control" name="username" placeholder="Enter Username">
+									<label for="username">Username</label><span class=""></span>
+									<input type="text" class="form-control" name="username" placeholder="Enter Username">
 								</div>
 								<div class="form-group">
 									<label for="password">Password</label>
@@ -112,9 +114,8 @@
 		$(function() {
 			var submitForm = function submitForm($form) {
 				var url = $form.attr('action');
-				console.log(url );
 				var postData = JSON.stringify($form.serializeObject());
-
+				$("#errors-pane", $form).addClass('hide');
 				$.ajax({
 					url: url,
 					data: postData,
@@ -136,7 +137,7 @@
 							text: message
 						}));
 					});
-					$("#errors-pane").empty().append($ul);
+					$(".errors-pane", $form).empty().append($ul).removeClass('hide');
 				}).complete(function(jqXhr, textStatus){
 
 				});

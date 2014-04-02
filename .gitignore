@@ -1,11 +1,13 @@
 #Compiled Assets Folder and bower related folders
 src/Gittu.Web/public/
 src/Gittu.Web/assets/components
-src/Gittu.Web/assets/node_modules
+node_modules
 src/Gittu.Web/assets/npm-debug.log
 src/Gittu.Web/node_modules
 src/npm-debug.log
 
+#DB File
+src/Gittu.Web/App_Data/gittu.db
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/

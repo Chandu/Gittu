@@ -1,6 +1,6 @@
 ﻿@import "main.css";
 @import "../components/bootstrap/less/bootstrap.less";
-@import "_gitty_variables.less";
+@import "_gittu_variables.less";
 
 body {
 	font-family: "Open Sans";
@@ -27,4 +27,22 @@ h1 {
 	display: inline-block;
 	vertical-align: middle;
 	float: none;
+}
+
+#container-eq-ht {
+	.row {
+		display: table;
+	}
+
+	[class*="col-"] {
+		float: none;
+		display: table-cell;
+		vertical-align: middle;
+	}	
+
+}
+
+.errors-pane {
+	.alert;
+	.alert-danger
 }
