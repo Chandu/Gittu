@@ -9,8 +9,14 @@ using Nancy.TinyIoc;
 
 namespace Gittu.Web.Core
 {
-	public class GittuNancyBootstrapper:DefaultNancyBootstrapper
+	public class GittuNancyBootstrapper : DefaultNancyBootstrapper
 	{
+		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+		{
+			base.ApplicationStartup(container, pipelines);
+			AutoMapperConfiguration.Configure();
+		}
+
 		protected override void ConfigureConventions(NancyConventions nancyConventions)
 		{
 			base.ConfigureConventions(nancyConventions);
@@ -33,7 +39,7 @@ namespace Gittu.Web.Core
 		{
 			container.Register<IAuthenticationService, DefaultAuthenticationService>();
 			container.Register<IEntityMappingsConfigurator, EntityMappingsConfigurator>();
-			
+
 			container.Register<IRegistrationService, DefaultRegistrationService>();
 			container
 				.Register<IGittuContext>((c, p) => new GittuContext("GittuDB"));

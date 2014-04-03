@@ -47,12 +47,10 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -98,7 +96,9 @@
     <Content Include="Views\GuestHome.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\AutoMapperConfiguration.cs" />
@@ -116,7 +116,11 @@
     <Compile Include="Domain\GittuContext.cs" />
     <Compile Include="Domain\IGittuContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
-    <Compile Include="Exceptions\DuplicateUserExistsException.cs" />
+    <Compile Include="Exceptions\DuplicateEntryException.cs" />
+    <Compile Include="Exceptions\EMailExistsException.cs" />
+    <Compile Include="Exceptions\IUserException.cs" />
+    <Compile Include="Exceptions\UsernameExistsException.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\ModelValidatorResultExtensions.cs" />
     <Compile Include="Mapping\RegisterViewModelProfile.cs" />
     <Compile Include="Mapping\RepositoryProfile.cs" />
@@ -143,6 +147,7 @@
     <Compile Include="Services\RepositoryProvider.cs" />
     <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
+    <Compile Include="ViewModels\ErrorResponse.cs" />
     <Compile Include="ViewModels\InvalidInputResponse.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />

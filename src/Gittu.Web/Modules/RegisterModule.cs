@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Gittu.Web.Exceptions;
 using Gittu.Web.Extensions;
 using Gittu.Web.ViewModels;
 using Nancy;
@@ -20,20 +22,33 @@ namespace Gittu.Web.Modules
 				var registrationData = this.BindAndValidate<RegisterViewModel>();
 				if(ModelValidationResult.IsValid)
 				{
-					var user = Mapper.Map<User>(registrationData);
-					var registrationResult  = registrationService.Register(user, registrationData.Password);
-					if (registrationResult.IsSuccess)
+					try
 					{
-						return Response.AsRedirect("login");	
-					}
-					return Response.AsJson(new InvalidInputResponse
-					{
-						Messages = new Dictionary<string, IEnumerable<string>>
+						var user = Mapper.Map<User>(registrationData);
+						var registrationResult = registrationService.Register(user, registrationData.Password);
+						if (registrationResult.IsSuccess)
 						{
-							{"", new [] {registrationResult.Message}}
-						},
-						Status = (int)HttpStatusCode.BadRequest 
-					}, HttpStatusCode.BadRequest);
+							return Response.AsRedirect("login");
+						}
+						return Response.AsJson(new InvalidInputResponse
+						{
+							Messages = new Dictionary<string, IEnumerable<string>>
+							{
+								{"", new[] {registrationResult.Message}}
+							},
+							Status = (int) HttpStatusCode.BadRequest
+						}, HttpStatusCode.BadRequest);
+					}
+					catch (AggregateException ex)
+					{
+						throw;
+					}
+					catch (Exception ex)
+					{
+
+						return ex.AsJson(Response);
+					}
+					
 				}
 				return Response.AsJson(ModelValidationResult.ToInvalidInput(), HttpStatusCode.BadRequest);
 			};

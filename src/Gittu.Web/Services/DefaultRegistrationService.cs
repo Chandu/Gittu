@@ -10,14 +10,18 @@ namespace Gittu.Web.Services
 	public class DefaultRegistrationService : IRegistrationService
 	{
 		public IUnitOfWork UnitOfWork { get; set; }
+
 		public IGittuContext GittuContext { get; set; }
+
 		public IMailService MailService { get; set; }
+
 		public IHasher Hasher { get; set; }
 
-		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService):this(unitOfWork, gittuContext, mailService, new SHA256Hasher())
+		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService)
+			: this(unitOfWork, gittuContext, mailService, new SHA256Hasher())
 		{
-			
 		}
+
 		public DefaultRegistrationService(IUnitOfWork unitOfWork, IGittuContext gittuContext, IMailService mailService, IHasher hasher)
 		{
 			UnitOfWork = unitOfWork;
@@ -28,17 +32,21 @@ namespace Gittu.Web.Services
 
 		public RegistrationResult Register(User user, string password)
 		{
-			if(user == null)
+			if (user == null)
 			{
 				throw new ArgumentException("User argument cannot be null", "user");
 			}
-			if(string.IsNullOrEmpty(password))
+			if (string.IsNullOrEmpty(password))
 			{
 				throw new ArgumentException("Password argument cannot be null", "password");
 			}
-			if(GittuContext.Users.Any(a => a.UserName == user.UserName))
+			if (GittuContext.Users.Any(a => a.UserName == user.UserName))
 			{
-				throw new DuplicateUserExistsException();
+				throw new UsernameExistsException(user.UserName);
+			}
+			if (GittuContext.Users.Any(a => a.EMail == user.EMail))
+			{
+				throw new EMailExistsException(user.EMail);
 			}
 			var saltToUse = HashUtils.GenerateSalt();
 			user.SetSalt(saltToUse);
@@ -48,7 +56,7 @@ namespace Gittu.Web.Services
 				UnitOfWork.Attach(user);
 				UnitOfWork.Commit();
 			}
-			
+
 			MailService.SendMailAsync(user.EMail, "Thanks for signing up.", "Some body");
 			return new RegistrationResult
 			{

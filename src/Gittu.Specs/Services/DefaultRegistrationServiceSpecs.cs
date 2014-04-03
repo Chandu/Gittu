@@ -90,7 +90,40 @@ namespace Gittu.Specs.Services
 				}, "somepassword"));			
 			};
 			It should_throw_user_exists_exception = () => 
-				_userNameExistsException.ShouldBeAssignableTo<DuplicateUserExistsException>();
+				_userNameExistsException.ShouldBeAssignableTo<UsernameExistsException>();
+
+			It should_report_the_duplicate_username = () =>
+				(_userNameExistsException as UsernameExistsException).Values.ShouldContain(new[]{"chandu"});
+		}
+
+		public class when_registering_with_duplicate_EMail
+		{
+			static Exception _emailExistsException;
+			static Func<IQueryable<User>> _dummyUsersFn;
+			Establish context = () =>
+			{
+				_fakeUsers = new[]{
+					new User{
+						EMail = "test@gmail.com",
+						Id = 1,
+						UserName = "chandu"
+					}
+				}.AsQueryable();
+			};
+
+			Because of = () =>
+			{
+				_emailExistsException = Catch.Exception(() => _registrationService.Register(new User
+				{
+					UserName = "testchandu",
+					EMail = "test@gmail.com"
+				}, "somepassword"));
+			};
+			It should_throw_user_exists_exception = () =>
+				_emailExistsException.ShouldBeAssignableTo<EMailExistsException>();
+
+			It should_report_the_duplicate_email = () =>
+				(_emailExistsException as EMailExistsException).Values.ShouldContain(new[] { "test@gmail.com" });
 		}
 
 		public class when_registering_with_valid_registration_information

@@ -34,6 +34,10 @@ namespace Gittu.Web.Validators
 				.Equal(x => x.Password)
 				.WithMessage("Password and Confirm Password donot match.")
 				;
+
+			RuleFor(x => x.TermsAgreed)
+				.Equal(true)
+				.WithMessage("Please Read and Agree to our Terms & Conditions to complete the registration.");
 		}
 	}
 }

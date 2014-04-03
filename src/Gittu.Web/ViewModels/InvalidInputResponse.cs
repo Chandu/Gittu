@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Nancy.Responses;
+
 namespace Gittu.Web.ViewModels
 {
 	public class InvalidInputResponse

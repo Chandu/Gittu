@@ -11,17 +11,16 @@ msbuild :build, [:env] do |msb, args|
 end
 
 desc "Migrate Db"
-fluentmigrator :migrate, [:env]  do |migrator, args|
+fluentmigrator :migrate, [:env]  => [:build] do |migrator, args|
 	 args.with_defaults(:env => 'Debug')
-	 configure_migrator migrator, args
-	
-	#migrator.verbose = true
+	configure_migrator migrator, args
 end
 
 desc "Migrate Db Down"
-fluentmigrator :unmigrate => [:build] do |migrator|
+fluentmigrator :unmigrate, [:env] => [:build] do |migrator, args|
+	 args.with_defaults(:env => 'Debug')
 	configure_migrator migrator
-	#migrator.task = "rollback"
+	migrator.task = "rollback"
 end
 
 desc "Find Migrator"
@@ -39,8 +38,8 @@ def configure_migrator(migrator, args)
 		db_file = "#{File.dirname(__FILE__ )}/Gittu.Web/App_Data/gittu.db"
 		if !File.exist?(db_file)
 		end
-		migrator.provider = 'sqlite'
-		migrator.connection = "Data Source=#{db_file}"
+		migrator.provider = 'sqlserver'
+		migrator.connection = "Server=.\\SQLExpress;Database=GittuDB;Trusted_Connection=True;"
 	else
 		migrator.provider = ENV['CONNECTION_PROVIDER']
 		migrator.connection = ENV['CONNECTION_STRING']

@@ -50,8 +50,8 @@
 								<div class="errors-pane hide">
 								</div>
 								<div class="form-group">
-									<label for="emailAddress">Email address</label>
-									<input type="email" class="form-control" name="emailAddress" placeholder="Enter email">
+									<label for="email">Email address</label>
+									<input type="email" class="form-control" name="email" placeholder="Enter email">
 								</div>
 								<div class="form-group">
 									<label for="username">Username</label>
@@ -67,7 +67,7 @@
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox"> I agree to <a href="#">Terms &amp; Conditions</a>.
+										<input type="checkbox" name="termsAgreed"> I agree to <a href="#">Terms &amp; Conditions</a>.
 									</label>
 
 									<button type="submit" class="btn btn-default btn-primary pull-right">Submit</button>
@@ -124,10 +124,17 @@
 
 				}).done(function(data, textStatus, jqXhr){
 
-				}).fail(function(jqXhr, textStatus, errorThrown){
-					var errorData = JSON.parse(jqXhr.responseText);
+				}).fail(function(jqXhr, textStatus, errorThrown) {
+					var messages = [];
+					if(errorThrown == 'Bad Request') {
+						var errorData = JSON.parse(jqXhr.responseText);
+						messages = errorData.messages
+					} else {
+						messages.push(textStatus);
+					}
+					
 					var $ul = $('<ul/>');
-					var allMessages = _.chain(errorData.messages)
+					var allMessages = _.chain(messages)
 						.map(function(values, key){
 							return values;
 						}).flatten()
