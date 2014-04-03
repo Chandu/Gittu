@@ -18,6 +18,10 @@
     "jquery": "1.10",
     "bootstrap": "~3.1.1",
     "modernizr": "~2.7.2",
-    "json3": "~3.3.0"
+    "json3": "~3.3.0",
+    "underscore": "~1.6.0"
+  },
+  "devDependencies": {
+    "underscore": "~1.6.0"
   }
 }

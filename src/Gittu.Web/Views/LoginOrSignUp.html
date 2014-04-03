@@ -105,7 +105,8 @@
 			
 		</div>
 	</div>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+	
+	<script src="@Path['~/public/js/underscore.js']"></script>
 	<script src="@Path['~/public/js/jquery.js']"></script>
 	<script src="@Path['~/public/js/bootstrap.js']"></script>
 	<script src="@Path['~/public/js/json3.js']"></script>
@@ -123,8 +124,13 @@
 					contentType: "application/json"
 
 				}).done(function(data, textStatus, jqXhr){
-
+					
 				}).fail(function(jqXhr, textStatus, errorThrown) {
+					var newLocation = jqXhr.getResponseHeader('X-REDIRECT');
+					if(newLocation && newLocation.length>0 ) {
+						window.location.href = newLocation;
+						return;
+					}
 					var messages = [];
 					if(errorThrown == 'Bad Request') {
 						var errorData = JSON.parse(jqXhr.responseText);

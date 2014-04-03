@@ -37,7 +37,7 @@ namespace Gittu.Web.Validators
 
 			RuleFor(x => x.TermsAgreed)
 				.Equal(true)
-				.WithMessage("Please Read and Agree to our Terms & Conditions to complete the registration.");
+				.WithMessage("Please read and Agree to our Terms & Conditions to complete the registration.");
 		}
 	}
 }

@@ -3,6 +3,7 @@ using Gittu.Web.Services;
 using Machine.Specifications;
 using Moq;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.Testing;
 using It = Machine.Specifications.It;
 
@@ -109,7 +110,7 @@ namespace Gittu.Specs.Modules
 				_authenticationServiceMock.Verify();
 
 			private It should_redirect_to_home_page = () =>
-				_response.ShouldHaveRedirectedTo("/");
+				_response.Headers["X-REDIRECT"].ShouldEqual(_response.Context.ToFullPath("/"));
 		}
 
 		public class with_invalid_username_password_combination

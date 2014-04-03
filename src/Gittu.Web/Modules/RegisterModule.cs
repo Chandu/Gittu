@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gittu.Web.Exceptions;
-using Gittu.Web.Extensions;
-using Gittu.Web.ViewModels;
-using Nancy;
-using Nancy.ModelBinding;
-using System.Linq;
-using Gittu.Web.Services;
 using AutoMapper;
 using Gittu.Web.Domain.Entities;
+using Gittu.Web.Extensions;
+using Gittu.Web.Services;
+using Gittu.Web.ViewModels;
+using Nancy;
+using Nancy.Extensions;
+using Nancy.ModelBinding;
 
 namespace Gittu.Web.Modules
 {
@@ -20,7 +19,7 @@ namespace Gittu.Web.Modules
 			Post["/register"] = _ =>
 			{
 				var registrationData = this.BindAndValidate<RegisterViewModel>();
-				if(ModelValidationResult.IsValid)
+				if (ModelValidationResult.IsValid)
 				{
 					try
 					{
@@ -28,7 +27,12 @@ namespace Gittu.Web.Modules
 						var registrationResult = registrationService.Register(user, registrationData.Password);
 						if (registrationResult.IsSuccess)
 						{
-							return Response.AsRedirect("login");
+							var toReturn = Response.AsRedirect("/login");
+
+							//I know, I know this looks stupid, but the Location header in a post reponse is eaten by the Browser monster and will automatically redirect. I want the location it in the jquery reponse header.
+							toReturn.Headers.Remove("Location");
+							toReturn.Headers.Add("X-REDIRECT", Context.ToFullPath("/login"));
+							return toReturn;
 						}
 						return Response.AsJson(new InvalidInputResponse
 						{
@@ -36,7 +40,7 @@ namespace Gittu.Web.Modules
 							{
 								{"", new[] {registrationResult.Message}}
 							},
-							Status = (int) HttpStatusCode.BadRequest
+							Status = (int)HttpStatusCode.BadRequest
 						}, HttpStatusCode.BadRequest);
 					}
 					catch (AggregateException ex)
@@ -45,10 +49,8 @@ namespace Gittu.Web.Modules
 					}
 					catch (Exception ex)
 					{
-
 						return ex.AsJson(Response);
 					}
-					
 				}
 				return Response.AsJson(ModelValidationResult.ToInvalidInput(), HttpStatusCode.BadRequest);
 			};

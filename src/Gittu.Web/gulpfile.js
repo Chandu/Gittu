@@ -8,6 +8,7 @@ var exec = require('child_process').exec;
 var resouces = {
 	"scripts" :  [
 		"./assets/components/modernizr/modernizr.js",
+		"./assets/components/underscore/underscore.js",
 		"./assets/components/jquery/jquery.js",
 		"./assets/components/bootstrap/dist/js/bootstrap.js",
 		"./assets/components/json3/lib/json3.js",

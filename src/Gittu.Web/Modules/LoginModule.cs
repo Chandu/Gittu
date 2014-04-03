@@ -3,6 +3,7 @@ using Gittu.Web.Extensions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.ModelBinding;
 
 namespace Gittu.Web.Modules
@@ -26,7 +27,11 @@ namespace Gittu.Web.Modules
 					AuthenticationService.Validate(loginViewModel.UserName, loginViewModel.Password);
 				if(loginResult.IsSuccess)
 				{
-					return Response.AsRedirect("/");	
+					var toReturn = Response.AsRedirect("/");
+					//I know, I know this looks stupid, but the Location header in a post reponse is eaten by the Browser monster and will automatically redirect. I want the location it in the jquery reponse header.
+					toReturn.Headers.Remove("Location");
+					toReturn.Headers.Add("X-REDIRECT", Context.ToFullPath("/"));
+					return toReturn;	
 				}
 				return Response.AsJson(new InvalidInputResponse
 				{

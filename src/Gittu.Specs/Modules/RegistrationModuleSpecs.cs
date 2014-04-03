@@ -5,6 +5,7 @@ using Gittu.Web.Modules;
 using Gittu.Web.Services;
 using Machine.Specifications;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.Testing;
 
 namespace Gittu.Specs.Modules
@@ -81,7 +82,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_message_should_agree_with_terms = () =>
-			_response.ShouldHaveErroredWith("Please Read and Agree to our Terms & Conditions to complete the registration.");
+			_response.ShouldHaveErroredWith("Please read and Agree to our Terms & Conditions to complete the registration.");
 	}
 
 	[Subject("Registration")]
@@ -158,7 +159,7 @@ namespace Gittu.Specs.Modules
 
 		
 		private It should_redirect_to_login_page = () =>
-			_response.ShouldHaveRedirectedTo("login");
+			_response.Headers["X-REDIRECT"].ShouldEqual(_response.Context.ToFullPath("/login"));
 	}
 
 	[Subject("Registration")]
