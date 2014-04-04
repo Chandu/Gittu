@@ -23,7 +23,7 @@ namespace Gittu.Web.Extensions
 			{
 				return formatter.AsJson(new InvalidInputResponse
 				{
-					Messages = (ex as IUserException).Messages,
+					Errors = (ex as IUserException).Errors,
 					Status = (int) HttpStatusCode.BadRequest
 				}, HttpStatusCode.BadRequest);
 			}

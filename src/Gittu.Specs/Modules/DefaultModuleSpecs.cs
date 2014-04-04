@@ -58,6 +58,7 @@ namespace Gittu.Specs.Modules
 				with.HttpRequest();
 			});
 
+			[Ignore("Enable this after the layout/markup is finalized.")]
 			private It should_return_site_user_view = () => 
 				_response.Body["#user-profile"].ShouldExist();
 		}

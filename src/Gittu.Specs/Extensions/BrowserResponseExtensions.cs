@@ -8,27 +8,13 @@ namespace Gittu.Specs
 {
 	internal static class BrowserResponseExtensions
 	{
-		public static void ShouldHaveErroredWith(this BrowserResponse response, string message)
+		public static void ShouldHaveErroredWith<T>(this BrowserResponse response, string message)
+			where T:IInvalidInput
 		{
-			switch (response.StatusCode)
-			{
-				case HttpStatusCode.BadRequest:
-				{
-					response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
-					var result = response.Body.DeserializeJson<InvalidInputResponse>();
-					result.Messages.ShouldNotBeEmpty();
-					result.Messages.Values.SelectMany(a => a).ShouldContain(message);		
-				}
-					break;
-				default:
-				{
-					response.StatusCode.ShouldEqual(HttpStatusCode.InternalServerError);
-					var result = response.Body.DeserializeJson<ErrorResponse>();
-					result.Message.ShouldNotBeEmpty();
-					result.Message.ShouldEqual(message);		
-				}
-					break;
-			}
+			response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
+			var result = response.GetModel<T>();
+			result.Errors.ShouldNotBeEmpty();
+			result.Errors.Values.SelectMany(a => a).ShouldContain(message);
 		}
 	}
 }

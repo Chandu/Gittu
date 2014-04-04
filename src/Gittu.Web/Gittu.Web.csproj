@@ -89,7 +89,13 @@
     </Content>
     <Content Include="app\main.js" />
     <Content Include="templates\home.html" />
-    <Content Include="Views\LoginOrSignUp.html">
+    <Content Include="Views\Account\_AccountLayout.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Account\Login.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Account\Register.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\_GuestLayout.html">
@@ -150,6 +156,7 @@
     <Compile Include="Validators\LoginViewModelValidator.cs" />
     <Compile Include="Validators\RegisterViewModelValidator.cs" />
     <Compile Include="ViewModels\ErrorResponse.cs" />
+    <Compile Include="ViewModels\IInvalidInput.cs" />
     <Compile Include="ViewModels\InvalidInputResponse.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />

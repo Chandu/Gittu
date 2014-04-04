@@ -12,7 +12,7 @@ namespace Gittu.Web.Exceptions
 		}
 
 
-		public override IDictionary<string, IEnumerable<string>> Messages
+		public override IDictionary<string, IEnumerable<string>> Errors
 		{
 			get
 			{

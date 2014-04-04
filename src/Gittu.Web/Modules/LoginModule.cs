@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Gittu.Web.Exceptions;
 using Gittu.Web.Extensions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;
-using Nancy.Extensions;
 using Nancy.ModelBinding;
 
 namespace Gittu.Web.Modules
@@ -16,31 +17,42 @@ namespace Gittu.Web.Modules
 			: base("account")
 		{
 			AuthenticationService = authenticationService;
-			Post["/login"] = _ =>
+			Post["login"] = _ =>
 			{
 				var loginViewModel = this.BindAndValidate<LoginViewModel>();
 				if (!ModelValidationResult.IsValid)
 				{
-					return Response.AsJson(ModelValidationResult.ToInvalidInput(), HttpStatusCode.BadRequest);
+					loginViewModel.Errors = ModelValidationResult.ToDictionary();
+					return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 				}
-				var loginResult = 
+
+				try
+				{
+					var loginResult =
 					AuthenticationService.Validate(loginViewModel.UserName, loginViewModel.Password);
-				if(loginResult.IsSuccess)
-				{
-					var toReturn = Response.AsRedirect("/");
-					//I know, I know this looks stupid, but the Location header in a post reponse is eaten by the Browser monster and will automatically redirect. I want the location it in the jquery reponse header.
-					toReturn.Headers.Remove("Location");
-					toReturn.Headers.Add("X-REDIRECT", Context.ToFullPath("/"));
-					return toReturn;	
-				}
-				return Response.AsJson(new InvalidInputResponse
-				{
-					Messages = new Dictionary<string, IEnumerable<string>>
+					if (loginResult.IsSuccess)
+					{
+						return Response.AsRedirect("/");
+					}
+					loginViewModel.Errors = new Dictionary<string, IEnumerable<string>>
 						{
-							{"", new [] {loginResult.Message}}
-						},
-					Status = (int)HttpStatusCode.Unauthorized
-				}, HttpStatusCode.Unauthorized);
+							{"", new[] {loginResult.Message}}
+						};
+				}
+				catch (AggregateException ex)
+				{
+					throw;
+				}
+				catch (Exception ex)
+				{
+					if (!(ex is IUserException))
+					{
+						throw;
+					}
+					loginViewModel.Errors = (ex as IUserException).Errors;
+				}
+				
+				return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.Unauthorized);
 			};
 		}
 	}

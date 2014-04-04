@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Gittu.Web.ViewModels;
 using Nancy;
 using Nancy.Validation;
@@ -11,7 +13,7 @@ namespace Gittu.Web.Extensions
 		{
 			return new InvalidInputResponse
 					{
-						Messages = modelValidationResult.Errors.SelectMany(a => a.Value.Select(b => new
+						Errors = modelValidationResult.Errors.SelectMany(a => a.Value.Select(b => new
 						{
 							PropertyName = a.Key,
 							Message = b.ErrorMessage
@@ -20,6 +22,14 @@ namespace Gittu.Web.Extensions
 						.ToDictionary(a => a.Key, a => a.Select(b => b.Message)),
 						Status = status
 					};
+		}
+
+		public static IDictionary<string, IEnumerable<string>> ToDictionary(this ModelValidationResult modelValidationResult)
+		{
+			return modelValidationResult
+				.Errors
+				.ToDictionary(a => a.Key, a => a.Value.Select(b => b.ErrorMessage));
+
 		}
 	}
 }

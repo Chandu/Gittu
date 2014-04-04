@@ -9,7 +9,7 @@ namespace Gittu.Web.Exceptions
 		public Type Type { get; protected set; }
 		public IReadOnlyList<object> Values { get; protected set; }
 		public IReadOnlyList<string> Keys { get; protected set; }
-		private IDictionary<string, IEnumerable<string>> _messages;
+		private IDictionary<string, IEnumerable<string>> _errors;
 		public DuplicateEntryException(string key, object value, Type type)
 			:this(new[] {key}, new[] {value},type)
 		{
@@ -39,9 +39,9 @@ namespace Gittu.Web.Exceptions
 				.ToDictionary(a => a.Key, a => a.Select( b=> b.Message));
 		}
 
-		public virtual IDictionary<string, IEnumerable<string>> Messages
+		public virtual IDictionary<string, IEnumerable<string>> Errors
 		{
-			get { return _messages ?? (_messages = ConstructMessages(Keys,Values, Type)); }
+			get { return _errors ?? (_errors = ConstructMessages(Keys,Values, Type)); }
 		}
 	}
 }

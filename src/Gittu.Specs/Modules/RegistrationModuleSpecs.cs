@@ -3,6 +3,7 @@ using Gittu.Web.Exceptions;
 using Gittu.Web.Mapping;
 using Gittu.Web.Modules;
 using Gittu.Web.Services;
+using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Nancy;
 using Nancy.Extensions;
@@ -23,6 +24,7 @@ namespace Gittu.Specs.Modules
 				_registrationServiceMock = new Moq.Mock<IRegistrationService>();
 				with.Dependency(_registrationServiceMock.Object);
 				with.Module<RegisterModule>();
+				with.ViewFactory<TestingViewFactory>();
 			});
 			_browser = new Browser(_bootstrapper);
 		};
@@ -44,7 +46,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_email_is_required_message = () =>
-			_response.ShouldHaveErroredWith("Email address is required.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("Email address is required.");
 	}
 
 	[Subject("Registration")]
@@ -63,7 +65,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_user_name_is_required_message = () =>
-			_response.ShouldHaveErroredWith("Username is required.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("Username is required.");
 	}
 
 	[Subject("Registration")]
@@ -82,7 +84,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_message_should_agree_with_terms = () =>
-			_response.ShouldHaveErroredWith("Please read and Agree to our Terms & Conditions to complete the registration.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("Please read and Agree to our Terms & Conditions to complete the registration.");
 	}
 
 	[Subject("Registration")]
@@ -101,7 +103,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_password_is_required_message = () =>
-			_response.ShouldHaveErroredWith("Password is required.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("Password is required.");
 	}
 
 	[Subject("Registration")]
@@ -120,7 +122,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_invalid_password_combination_message = () =>
-			_response.ShouldHaveErroredWith("Password and Confirm Password donot match.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("Password and Confirm Password donot match.");
 	}
 
 	[Subject("Registration")]
@@ -157,9 +159,9 @@ namespace Gittu.Specs.Modules
 		private It should_successfully_register_the_user = () =>
 			_response.StatusCode.ShouldEqual(HttpStatusCode.SeeOther);
 
-		
+
 		private It should_redirect_to_login_page = () =>
-			_response.Headers["X-REDIRECT"].ShouldEqual(_response.Context.ToFullPath("/login"));
+			_response.ShouldHaveRedirectedTo("login");
 	}
 
 	[Subject("Registration")]
@@ -176,6 +178,7 @@ namespace Gittu.Specs.Modules
 				AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
 				with.Dependency(_registrationServiceMock.Object);
 				with.Module<RegisterModule>();
+				with.ViewFactory<TestingViewFactory>();
 			});
 			_browser = new Browser(_bootstrapper);
 		};
@@ -198,7 +201,7 @@ namespace Gittu.Specs.Modules
 			_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 		private It should_return_username_exists_message = () =>
-			_response.ShouldHaveErroredWith("A user with the username chandu already exists in the system.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("A user with the username chandu already exists in the system.");
 
 	}
 
@@ -216,6 +219,7 @@ namespace Gittu.Specs.Modules
 				AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
 				with.Dependency(_registrationServiceMock.Object);
 				with.Module<RegisterModule>();
+				with.ViewFactory<TestingViewFactory>();
 			});
 			_browser = new Browser(_bootstrapper);
 		};
@@ -238,7 +242,7 @@ namespace Gittu.Specs.Modules
 			_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 		private It should_return_username_exists_message = () =>
-			_response.ShouldHaveErroredWith("A user with the email c@gmail.com already exists in the system.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("A user with the email c@gmail.com already exists in the system.");
 
 	}
 

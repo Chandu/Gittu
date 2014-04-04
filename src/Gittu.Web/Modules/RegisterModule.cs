@@ -2,57 +2,54 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Gittu.Web.Domain.Entities;
+using Gittu.Web.Exceptions;
 using Gittu.Web.Extensions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;
-using Nancy.Extensions;
 using Nancy.ModelBinding;
 
 namespace Gittu.Web.Modules
 {
-	public class RegisterModule : NancyModule
+	public class RegisterModule : AccountModule
 	{
 		public RegisterModule(IRegistrationService registrationService)
-			: base("/account")
 		{
-			Post["/register"] = _ =>
+			Post["register"] = _ =>
 			{
-				var registrationData = this.BindAndValidate<RegisterViewModel>();
-				if (ModelValidationResult.IsValid)
+				var registrationViewModel = this.BindAndValidate<RegisterViewModel>();
+				if (!ModelValidationResult.IsValid)
 				{
-					try
+					registrationViewModel.Errors = ModelValidationResult.ToDictionary();
+					return View["Register", registrationViewModel].WithStatusCode(HttpStatusCode.BadRequest);
+				}
+				try
+				{
+					var user = Mapper.Map<User>(registrationViewModel);
+					var registrationResult = registrationService.Register(user, registrationViewModel.Password);
+					if (registrationResult.IsSuccess)
 					{
-						var user = Mapper.Map<User>(registrationData);
-						var registrationResult = registrationService.Register(user, registrationData.Password);
-						if (registrationResult.IsSuccess)
-						{
-							var toReturn = Response.AsRedirect("/login");
-
-							//I know, I know this looks stupid, but the Location header in a post reponse is eaten by the Browser monster and will automatically redirect. I want the location it in the jquery reponse header.
-							toReturn.Headers.Remove("Location");
-							toReturn.Headers.Add("X-REDIRECT", Context.ToFullPath("/login"));
-							return toReturn;
-						}
-						return Response.AsJson(new InvalidInputResponse
-						{
-							Messages = new Dictionary<string, IEnumerable<string>>
-							{
-								{"", new[] {registrationResult.Message}}
-							},
-							Status = (int)HttpStatusCode.BadRequest
-						}, HttpStatusCode.BadRequest);
+						return Response.AsRedirect("login");
 					}
-					catch (AggregateException ex)
+					registrationViewModel.Errors = new Dictionary<string, IEnumerable<string>>
+					{
+						{"", new[] {registrationResult.Message}}
+					};
+
+				}
+				catch (AggregateException ex)
+				{
+					throw;
+				}
+				catch (Exception ex)
+				{
+					if (!(ex is IUserException))
 					{
 						throw;
 					}
-					catch (Exception ex)
-					{
-						return ex.AsJson(Response);
-					}
+					registrationViewModel.Errors = (ex as IUserException).Errors;
 				}
-				return Response.AsJson(ModelValidationResult.ToInvalidInput(), HttpStatusCode.BadRequest);
+				return View["Register",registrationViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 			};
 		}
 	}

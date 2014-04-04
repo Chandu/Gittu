@@ -1,0 +1,30 @@
+﻿@Master['_AccountLayout.html'];
+@Section['Body']
+<ul class="nav nav-pills">
+	<li><a href="@Path['~/account/register']">Register</a></li>
+	<li class="active"><a href="#"  data-toggle="tab">Login</a></li>
+</ul>
+<div class="tab-content">
+  <div id="login" class="tab-pane active">
+    <form role="form" action="@Path['~/account/login']" method="post" name="login-form" id="login-form">
+      <div class="errors-pane hide">
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label><span class=""></span>
+        <input type="text" class="form-control" name="username" placeholder="Enter Username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me.
+        </label>
+        <button type="submit" class="btn btn-default btn-primary pull-right">Submit</button>
+      </div>
+								
+    </form>
+  </div>			
+</div>
+@EndSection

@@ -1,5 +1,6 @@
 ﻿using Gittu.Web.Modules;
 using Gittu.Web.Services;
+using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Moq;
 using Nancy;
@@ -24,6 +25,7 @@ namespace Gittu.Specs.Modules
 			{
 				with.Dependency(_authenticationServiceMock.Object);
 				with.Module<LoginModule>();
+				with.ViewFactory<TestingViewFactory>();
 			});
 			_browser = new Browser(_bootstrapper);
 		};
@@ -41,7 +43,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_username_is_required = () =>
-				_response.ShouldHaveErroredWith("Username is required.");
+				_response.ShouldHaveErroredWith<LoginViewModel>("Username is required.");
 		}
 
 		public class with_invalid_username_length
@@ -57,7 +59,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_username_is_invalid = () =>
-				_response.ShouldHaveErroredWith("Username is invalid.");
+				_response.ShouldHaveErroredWith<LoginViewModel>("Username is invalid.");
 		}
 
 		public class with_blank_password
@@ -73,7 +75,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_password_is_required = () =>
-				_response.ShouldHaveErroredWith("Password is required.");
+				_response.ShouldHaveErroredWith<LoginViewModel>("Password is required.");
 		}
 
 		public class with_invalid_password_length
@@ -89,7 +91,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_password_is_invalid = () =>
-				_response.ShouldHaveErroredWith("Password is invalid.");
+				_response.ShouldHaveErroredWith<LoginViewModel>("Password is invalid.");
 		}
 
 		public class with_valid_credentials
@@ -110,7 +112,7 @@ namespace Gittu.Specs.Modules
 				_authenticationServiceMock.Verify();
 
 			private It should_redirect_to_home_page = () =>
-				_response.Headers["X-REDIRECT"].ShouldEqual(_response.Context.ToFullPath("/"));
+				_response.ShouldHaveRedirectedTo("/");
 		}
 
 		public class with_invalid_username_password_combination

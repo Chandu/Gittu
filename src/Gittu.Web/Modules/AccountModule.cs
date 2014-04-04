@@ -6,7 +6,9 @@ namespace Gittu.Web.Modules
 	{
 		public AccountModule():base("account")
 		{
-			Get["/"] = _ => View["LoginOrSignup"];
+			Get["login"] = _ => View["Login"];
+			Get["register"] = _ => View["Register"];
+
 		}
 		
 	}

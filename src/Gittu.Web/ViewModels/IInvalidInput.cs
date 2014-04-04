@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Gittu.Web.Exceptions
+namespace Gittu.Web.ViewModels
 {
-	public interface IUserException
+	public interface IInvalidInput
 	{
 		IDictionary<string, IEnumerable<string>> Errors { get; }
 	}
