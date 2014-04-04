@@ -6,10 +6,7 @@ namespace Gittu.Web.Modules
 	{
 		public DefaultModule()
 		{
-			Get["/"] = _ =>
-			{
-				return Context.CurrentUser != null ? View["Home"] : View["GuestHome"];
-			};
+			Get["/"] = _ => Context.CurrentUser != null ? View["Home"] : View["GuestHome"];
 		}
 	}
 }

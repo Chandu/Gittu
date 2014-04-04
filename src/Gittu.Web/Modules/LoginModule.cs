@@ -4,6 +4,7 @@ using Gittu.Web.Exceptions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.ModelBinding;
 
 namespace Gittu.Web.Modules
@@ -31,7 +32,9 @@ namespace Gittu.Web.Modules
 					AuthenticationService.Validate(loginViewModel.UserName, loginViewModel.Password);
 					if (loginResult.IsSuccess)
 					{
-						return Response.AsRedirect("/");
+						var userGuid = Guid.NewGuid();
+						AuthenticationService.SaveUserToken(loginViewModel.UserName, userGuid);
+						return this.LoginAndRedirect(userGuid, loginViewModel.RememberMe ? DateTime.Now.AddDays(15) : new DateTime?());
 					}
 					loginViewModel.Errors = new Dictionary<string, IEnumerable<string>>
 						{
@@ -50,7 +53,7 @@ namespace Gittu.Web.Modules
 					}
 					loginViewModel.Errors = (ex as IUserException).Errors;
 				}
-				
+
 				return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.Unauthorized);
 			};
 		}

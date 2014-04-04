@@ -3,16 +3,10 @@ using Nancy.Security;
 
 namespace Gittu.Web.Security
 {
-	public class GittuUserIdentity:IUserIdentity
+	public class GittuUserIdentity : IUserIdentity
 	{
-		public IEnumerable<string> Claims
-		{
-			get { throw new System.NotImplementedException(); }
-		}
+		public IEnumerable<string> Claims { get; internal set; }
 
-		public string UserName
-		{
-			get { throw new System.NotImplementedException(); }
-		}
+		public string UserName { get; internal set; }
 	}
 }

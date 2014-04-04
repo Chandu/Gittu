@@ -1,10 +1,14 @@
-﻿using Gittu.Web.Modules;
+﻿using System;
+using Gittu.Web.Modules;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Moq;
 using Nancy;
+using Nancy.Authentication.Forms;
+using Nancy.Bootstrapper;
 using Nancy.Extensions;
+using Nancy.Security;
 using Nancy.Testing;
 using It = Machine.Specifications.It;
 
@@ -96,13 +100,22 @@ namespace Gittu.Specs.Modules
 
 		public class with_valid_credentials
 		{
-			private Establish context = () => _authenticationServiceMock
-				.Setup(a => a.Validate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>()))
-				.Returns(new LoginResult(true, "Login successful."))
-				.Verifiable();
-
-			private Because of = () => _response = _browser.Post("/account/login", with =>
+			private Establish context = () =>
 			{
+				_authenticationServiceMock
+					.Setup(a => a.Validate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>()))
+					.Returns(new LoginResult(true, "Login successful."))
+					.Verifiable();
+
+				_authenticationServiceMock
+					.Setup(a => a.SaveUserToken(Moq.It.IsAny<string>(), Moq.It.IsAny<Guid>()))
+					.Verifiable();
+			};
+		
+
+		private Because of = () => _response = _browser.Post("/account/login", with =>
+			{
+				
 				with.HttpRequest();
 				with.FormValue("userName", "username");
 				with.FormValue("password", "password");

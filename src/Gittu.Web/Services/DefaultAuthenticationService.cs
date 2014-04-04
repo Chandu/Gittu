@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Gittu.Web.Domain;
+using Gittu.Web.Domain.Entities;
 using Gittu.Web.Security;
 
 namespace Gittu.Web.Services
@@ -47,6 +50,23 @@ namespace Gittu.Web.Services
 			var toReturn = _invalidUPResultFn();
 			toReturn.WasUserFound = true;
 			return toReturn;
+		}
+
+		//Poormans Token Store
+		private static readonly Dictionary<string, Guid> TokenDictionary = new Dictionary<string, Guid>(); 
+		public void SaveUserToken(string userName, Guid token)
+		{
+			TokenDictionary[userName.ToLower()] = token;
+		}
+
+		public User GetUserFromToken(Guid token)
+		{
+			var entry = TokenDictionary.FirstOrDefault(x => x.Value == token);
+			if (entry.Equals(default(KeyValuePair<string,Guid>)))
+			{
+				return null;
+			}
+			return  GittuContext.Users.FirstOrDefault(a =>a.UserName == entry.Key);
 		}
 	}
 }
