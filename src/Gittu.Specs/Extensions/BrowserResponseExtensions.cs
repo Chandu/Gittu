@@ -9,7 +9,7 @@ namespace Gittu.Specs
 	internal static class BrowserResponseExtensions
 	{
 		public static void ShouldHaveErroredWith<T>(this BrowserResponse response, string message)
-			where T:IInvalidInput
+			where T : IInvalidInput
 		{
 			response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 			var result = response.GetModel<T>();

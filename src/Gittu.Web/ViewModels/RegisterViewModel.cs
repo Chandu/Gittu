@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Gittu.Web.ViewModels
@@ -18,14 +19,9 @@ namespace Gittu.Web.ViewModels
 		//TODO: (CV) These should go to ViewBag later
 		public IDictionary<string, IEnumerable<string>> Errors { get; set; }
 
-		public IEnumerable<string> FlattenedErrors
+		public ICollection<string> FlattenedErrors
 		{
-			get { return (Errors != null) ? Errors.SelectMany(a => a.Value) : Enumerable.Empty<string>(); }
-		}
-
-		public bool HasErrors
-		{
-			get { return FlattenedErrors.Any(); }
+			get { return new Collection<string>(((Errors != null) ? Errors.SelectMany(a => a.Value) : Enumerable.Empty<string>()).ToList()); }
 		}
 	}
 }
