@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gittu.Web.Exceptions;
-using Gittu.Web.Extensions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;

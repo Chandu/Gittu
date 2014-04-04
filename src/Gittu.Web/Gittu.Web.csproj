@@ -129,7 +129,7 @@
     <Compile Include="Exceptions\IUserException.cs" />
     <Compile Include="Exceptions\UsernameExistsException.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Extensions\ModelValidatorResultExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Mapping\RegisterViewModelProfile.cs" />
     <Compile Include="Mapping\RepositoryProfile.cs" />
     <Compile Include="Modules\AccountModule.cs" />

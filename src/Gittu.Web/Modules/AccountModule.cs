@@ -1,4 +1,5 @@
-﻿using Nancy;
+﻿using Gittu.Web.ViewModels;
+using Nancy;
 
 namespace Gittu.Web.Modules
 {
@@ -6,8 +7,8 @@ namespace Gittu.Web.Modules
 	{
 		public AccountModule():base("account")
 		{
-			Get["login"] = _ => View["Login"];
-			Get["register"] = _ => View["Register"];
+			Get["login"] = _ => View["Login", new LoginViewModel()];
+			Get["register"] = _ => View["Register", new RegisterViewModel()];
 
 		}
 		

@@ -3,7 +3,7 @@ using Gittu.Web.Exceptions;
 using Gittu.Web.ViewModels;
 using Nancy;
 
-namespace Gittu.Web.Extensions
+namespace Gittu.Web
 {
 	public static class ExceptionExtensions
 	{

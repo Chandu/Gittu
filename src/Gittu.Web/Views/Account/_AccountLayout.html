@@ -40,6 +40,17 @@
 				<div class="col-md-3">
 				</div>
 				<div class="col-md-6">
+					@If.HasErrors
+						<div class="alert alert-danger">
+							<ul>
+								@Each.FlattenedErrors
+									<li>@Current</li>
+								@EndEach
+							</ul>	
+						</div>
+						
+					@EndIf
+
 					@Section['Body']
 				</div>
 				<div class="col-md-3"></div>

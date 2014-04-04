@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using Gittu.Web.ViewModels;
 using Nancy;
 using Nancy.Validation;
 
-namespace Gittu.Web.Extensions
+namespace Gittu.Web
 {
-	public static class ModelValidatorResultExtensions
+	public static class DictionaryExtensions
 	{
 		public static InvalidInputResponse ToInvalidInput(this ModelValidationResult modelValidationResult, int status = (int) HttpStatusCode.BadRequest)
 		{
@@ -29,7 +29,19 @@ namespace Gittu.Web.Extensions
 			return modelValidationResult
 				.Errors
 				.ToDictionary(a => a.Key, a => a.Value.Select(b => b.ErrorMessage));
+		}
 
+		public static NameValueCollection ToNameValueCollection(
+		this IDictionary<string, IEnumerable<string>> dict)
+		{
+			var nameValueCollection = new NameValueCollection();
+
+			foreach (var kvp in dict.Where(kvp => kvp.Value != null))
+			{
+				kvp.Value.ToList().ForEach(a => nameValueCollection.Add(kvp.Key, a));
+			}
+
+			return nameValueCollection;
 		}
 	}
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AutoMapper;
 using Gittu.Web.Domain.Entities;
 using Gittu.Web.Exceptions;
-using Gittu.Web.Extensions;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Nancy;

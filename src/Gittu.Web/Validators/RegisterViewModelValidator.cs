@@ -7,11 +7,11 @@ namespace Gittu.Web.Validators
 	{
 		public RegisterViewModelValidator()
 		{
-			RuleFor(x => x.Email).NotEmpty()
-				.WithMessage("Email address is required.")
+			RuleFor(x => x.EMail).NotEmpty()
+				.WithMessage("EMail address is required.")
 				.Configure(p => p.CascadeMode = CascadeMode.StopOnFirstFailure)
 				.EmailAddress()
-				.WithMessage("Email address is invalid.")
+				.WithMessage("EMail address is invalid.")
 			;
 
 			RuleFor(x => x.Password)

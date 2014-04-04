@@ -46,7 +46,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_email_is_required_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("Email address is required.");
+			_response.ShouldHaveErroredWith<RegisterViewModel>("EMail address is required.");
 	}
 
 	[Subject("Registration")]
