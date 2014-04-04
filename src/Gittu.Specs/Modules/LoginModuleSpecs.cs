@@ -1,5 +1,6 @@
 ﻿using System;
 using Gittu.Web.Modules;
+using Gittu.Web.Security;
 using Gittu.Web.Services;
 using Gittu.Web.ViewModels;
 using Machine.Specifications;
@@ -7,8 +8,6 @@ using Moq;
 using Nancy;
 using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
-using Nancy.Extensions;
-using Nancy.Security;
 using Nancy.Testing;
 using It = Machine.Specifications.It;
 
@@ -21,10 +20,24 @@ namespace Gittu.Specs.Modules
 		private static ConfigurableBootstrapper _bootstrapper;
 		private static BrowserResponse _response;
 		private static Mock<IAuthenticationService> _authenticationServiceMock;
-
+		private static Mock<IUserMapper> _userMapperMock;
 		private Establish context = () =>
 		{
 			_authenticationServiceMock = new Mock<IAuthenticationService>();
+			_userMapperMock = new Mock<IUserMapper>();
+
+			var config = new FormsAuthenticationConfiguration()
+			{
+				RedirectUrl = "~/login",
+				UserMapper = _userMapperMock.Object
+			};
+			_userMapperMock
+				.Setup(a => a.GetUserFromIdentifier(Moq.It.IsAny<Guid>(), Moq.It.IsAny<NancyContext>()))
+				.Returns(() => new GittuUserIdentity())
+				;
+			var fakePipelines = new Pipelines();
+			FormsAuthentication.Enable(fakePipelines, config); 
+
 			_bootstrapper = new ConfigurableBootstrapper(with =>
 			{
 				with.Dependency(_authenticationServiceMock.Object);
@@ -111,15 +124,13 @@ namespace Gittu.Specs.Modules
 					.Setup(a => a.SaveUserToken(Moq.It.IsAny<string>(), Moq.It.IsAny<Guid>()))
 					.Verifiable();
 			};
-		
 
-		private Because of = () => _response = _browser.Post("/account/login", with =>
-			{
-				
-				with.HttpRequest();
-				with.FormValue("userName", "username");
-				with.FormValue("password", "password");
-			});
+			private Because of = () => _response = _browser.Post("/account/login", with =>
+				{
+					with.HttpRequest();
+					with.FormValue("userName", "username");
+					with.FormValue("password", "password");
+				});
 
 			private It should_have_called_authentication_service = () =>
 				_authenticationServiceMock.Verify();

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Gittu.Web.ViewModels
 {
 	public class LoginViewModel : IInvalidInput
 	{
+		public LoginViewModel()
+		{
+			Errors = new Dictionary<string, IEnumerable<string>>();
+		}
 		public string UserName { get; set; }
 
 		public string Password { get; set; }
@@ -15,10 +18,9 @@ namespace Gittu.Web.ViewModels
 		//TODO: (CV) These should go to ViewBag later
 		public IDictionary<string, IEnumerable<string>> Errors { get; set; }
 
-		public ICollection<string> FlattenedErrors
+		public IEnumerable<string> FlattenedErrors
 		{
-			get { return new Collection<string>(((Errors != null)? Errors.SelectMany(a => a.Value):Enumerable.Empty<string>()).ToList()); }
+			get { return (Errors != null) ? Errors.SelectMany(a => a.Value) : Enumerable.Empty<string>(); }
 		}
-
 	}
 }

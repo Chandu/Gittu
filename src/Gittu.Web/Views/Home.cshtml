@@ -13,8 +13,8 @@
 	<title>Gittu</title>
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
-	<link href="@Path['~/public/css/gittu.css']" rel='stylesheet' type='text/css'>
-	<script src="@Path['~/public/js/modernizr.js']"></script>
+	<link href="@Url.Content("~/public/css/gittu.css")" rel='stylesheet' type='text/css'>
+	<script src="@Url.Content("~/public/js/modernizr.js")"></script>
 </head>
 <body>
 	<!--[if lt IE 7]>
@@ -29,43 +29,27 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+				<a class="navbar-brand" href="@Url.Content("~/")">Gittu</a>
 			</div>
-			<a class="navbar-brand" href="@Path['~/']">Gittu</a>
+			<div class="collapse navbar-collapse" id="page-navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="@Url.Content("~/")">Repositories</a></li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 
-	<div class="container" id="login-signup-container">
+	<div class="container">
 		<div id="pg">
-			<div class="row">
-				<div class="col-md-3">
-				</div>
-				<div class="col-md-6">
-					@If.HasFlattenedErrors
-						<div class="alert alert-danger">
-							<ul>
-								@Each.FlattenedErrors
-									<li>@Current</li>
-								@EndEach
-							</ul>	
-						</div>
-						
-					@EndIf
-
-					@Section['Body']
-				</div>
-				<div class="col-md-3"></div>
+			<div ng-view>
 			</div>
-			<div id="messages-pane">
-				
-			</div>
-			
 		</div>
 	</div>
-	
-	<script src="@Path['~/public/js/underscore.js']"></script>
-	<script src="@Path['~/public/js/jquery.js']"></script>
-	<script src="@Path['~/public/js/bootstrap.js']"></script>
-	<script src="@Path['~/public/js/json3.js']"></script>
-	<script src="@Path['~/public/js/plugins.js']"></script>
+	<script src="@Url.Content("~/public/js/underscore.js")"></script>
+	<script src="@Url.Content("~/public/js/jquery.js")"></script>
+	<script src="@Url.Content("~/public/js/bootstrap.js")"></script>
+	<script src="@Url.Content("~/public/js/json3.js")"></script>
+	<script src="@Url.Content("~/public/js/plugins.js")"></script>
+	<script src="@Url.Content("~/public/js/app.js")"></script>
 </body>
 </html>

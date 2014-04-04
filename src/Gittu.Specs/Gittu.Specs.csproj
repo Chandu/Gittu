@@ -50,13 +50,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LibGit2Sharp.0.16.0.0\lib\net35\LibGit2Sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Machine.Specifications, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Machine.Specifications.0.8.0\lib\net45\Machine.Specifications.dll</HintPath>
+      <HintPath>..\packages\Machine.Specifications.0.8.1\lib\net45\Machine.Specifications.dll</HintPath>
     </Reference>
-    <Reference Include="Machine.Specifications.Clr4, Version=0.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Machine.Specifications.Clr4, Version=0.8.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Machine.Specifications.0.8.0\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
+      <HintPath>..\packages\Machine.Specifications.0.8.1\lib\net45\Machine.Specifications.Clr4.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications.Should">
       <HintPath>..\packages\Machine.Specifications.Should.0.7.1\lib\net45\Machine.Specifications.Should.dll</HintPath>
@@ -80,13 +80,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Nancy.Validation.FluentValidation.0.22.2\lib\net40\Nancy.Validation.FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.18.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Nancy.ViewEngines.Razor">
+      <HintPath>..\packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.18.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoFixture.3.18.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>..\packages\AutoFixture.3.18.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Razor.Unofficial">
+      <HintPath>..\packages\System.Web.Razor.Unofficial.2.0.2\lib\net40\System.Web.Razor.Unofficial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -108,7 +114,9 @@
     <Compile Include="TestBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gittu.Web\Gittu.Web.csproj">
@@ -137,7 +145,11 @@ if not exist "$(TargetDir)NativeBinaries" md "$(TargetDir)NativeBinaries"
 if not exist "$(TargetDir)NativeBinaries\x86" md "$(TargetDir)NativeBinaries\x86"
 xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.16.0.0\lib\net35\NativeBinaries\x86\*.*" "$(TargetDir)NativeBinaries\x86"
 if not exist "$(TargetDir)NativeBinaries\amd64" md "$(TargetDir)NativeBinaries\amd64"
-xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.16.0.0\lib\net35\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
+xcopy /s /y /d "$(SolutionDir)packages\LibGit2Sharp.0.16.0.0\lib\net35\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"
+if $(ConfigurationName) == Debug (
+xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\BuildProviders\Nancy.ViewEngines.Razor.BuildProviders.dll" "$(ProjectDir)bin\"
+xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\Net40\Nancy.ViewEngines.Razor.dll" "$(ProjectDir)bin\"
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
