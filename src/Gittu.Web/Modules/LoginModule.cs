@@ -11,12 +11,20 @@ namespace Gittu.Web.Modules
 {
 	public class LoginModule : NancyModule
 	{
-		public IAuthenticationService AuthenticationService { get; set; }
+		private readonly IUserTokenStore _userTokenStore;
+		private readonly IAuthenticationService _authenticationService;
 
 		public LoginModule(IAuthenticationService authenticationService)
+			: this(authenticationService, new InMemoryUserTokenStore())
+		{
+		}
+
+		public LoginModule(IAuthenticationService authenticationService, IUserTokenStore userTokenStore)
 			: base("account")
 		{
-			AuthenticationService = authenticationService;
+			_userTokenStore = userTokenStore;
+			_authenticationService = authenticationService;
+
 			Post["login"] = _ =>
 			{
 				var loginViewModel = this.BindAndValidate<LoginViewModel>();
@@ -29,11 +37,11 @@ namespace Gittu.Web.Modules
 				try
 				{
 					var loginResult =
-					AuthenticationService.Validate(loginViewModel.UserName, loginViewModel.Password);
+					_authenticationService.Validate(loginViewModel.UserName, loginViewModel.Password);
 					if (loginResult.IsSuccess)
 					{
 						var userGuid = Guid.NewGuid();
-						AuthenticationService.SaveUserToken(loginViewModel.UserName, userGuid);
+						_userTokenStore.Save(loginViewModel.UserName, userGuid);
 						return this.LoginAndRedirect(userGuid, loginViewModel.RememberMe ? DateTime.Now.AddDays(15) : new DateTime?());
 					}
 					ViewBag._Errors_ = new Dictionary<string, IEnumerable<string>>

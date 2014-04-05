@@ -59,6 +59,8 @@ namespace Gittu.Web.Core
 				.Register<IGittuContext>((c, p) => new GittuContext("GittuDB"));
 			container
 				.Register<IUnitOfWork>((c, p) => new GittuUnitOfWork("GittuDB"));
+			container
+			.Register<IUserTokenStore>((c, p) => new DatabaseUserTokenStore("GittuDB"));
 			base.ConfigureRequestContainer(container, context);
 		}
 	}

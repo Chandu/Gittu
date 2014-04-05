@@ -123,7 +123,6 @@
     <Compile Include="Domain\Entities\Mapping\IEntityMappingsConfigurator.cs" />
     <Compile Include="Domain\Entities\Mapping\MapBase.cs" />
     <Compile Include="Domain\Entities\Mapping\UserMapping.cs" />
-    <Compile Include="Domain\Entities\UserToken.cs" />
     <Compile Include="Domain\GittuUnitOfWork.cs" />
     <Compile Include="Domain\Entities\Enums.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />
@@ -132,6 +131,8 @@
     <Compile Include="Domain\GittuContext.cs" />
     <Compile Include="Domain\IGittuContext.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
+    <Compile Include="Services\DatabaseUserTokenStore.cs" />
+    <Compile Include="Services\IUserTokenStore.cs" />
     <Compile Include="Exceptions\DuplicateEntryException.cs" />
     <Compile Include="Exceptions\EMailExistsException.cs" />
     <Compile Include="Exceptions\IUserException.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Services\DefaultRegistrationService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
     <Compile Include="Services\IMailService.cs" />
+    <Compile Include="Services\InMemoryUserTokenStore.cs" />
     <Compile Include="Services\IRegistrationService.cs" />
     <Compile Include="Services\IRepoFileService.cs" />
     <Compile Include="Services\IRepositoryProvider.cs" />

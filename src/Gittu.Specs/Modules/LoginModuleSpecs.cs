@@ -19,11 +19,13 @@ namespace Gittu.Specs.Modules
 		private static ConfigurableBootstrapper _bootstrapper;
 		private static BrowserResponse _response;
 		private static Mock<IAuthenticationService> _authenticationServiceMock;
+		private static InMemoryUserTokenStore _userTokenStore;
 		private static Mock<IUserMapper> _userMapperMock;
 
 		private Establish context = () =>
 		{
 			_authenticationServiceMock = new Mock<IAuthenticationService>();
+			_userTokenStore = new InMemoryUserTokenStore();
 			_userMapperMock = new Mock<IUserMapper>();
 
 			var config = new FormsAuthenticationConfiguration()
@@ -41,6 +43,7 @@ namespace Gittu.Specs.Modules
 			_bootstrapper = new ConfigurableBootstrapper(with =>
 			{
 				with.Dependency(_authenticationServiceMock.Object);
+				with.Dependency(_userTokenStore);
 				with.Module<LoginModule>();
 				with.ViewFactory<TestingViewFactory>();
 			});
@@ -119,10 +122,6 @@ namespace Gittu.Specs.Modules
 					.Setup(a => a.Validate(Moq.It.IsAny<string>(), Moq.It.IsAny<string>()))
 					.Returns(new LoginResult(true, "Login successful."))
 					.Verifiable();
-
-				_authenticationServiceMock
-					.Setup(a => a.SaveUserToken(Moq.It.IsAny<string>(), Moq.It.IsAny<Guid>()))
-					.Verifiable();
 			};
 
 			private Because of = () => _response = _browser.Post("/account/login", with =>
@@ -137,6 +136,13 @@ namespace Gittu.Specs.Modules
 
 			private It should_redirect_to_home_page = () =>
 				_response.ShouldHaveRedirectedTo("/");
+
+			private It should_generate_and_save_guid_token_for_user = () =>
+			{
+				_userTokenStore.Get("userName").ShouldNotBeNull();
+				_userTokenStore.Get("userName").ShouldNotEqual(Guid.Empty);
+			};
+
 		}
 
 		public class with_invalid_username_password_combination
