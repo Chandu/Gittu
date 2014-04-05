@@ -15,10 +15,10 @@
 				.IsUnicode()
 				.IsRequired();
 
-			Property(a => a.Password)
-				;
-			Property(a => a.Salt)
-				;
+			Property(a => a.Password);
+			Property(a => a.Salt);
+			Property(a => a.Status);
+			Property(a => a.Role);
 		}
 	}
 }

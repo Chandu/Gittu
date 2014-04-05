@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Gittu.Web.Domain;
 using Gittu.Web.Domain.Entities;
 using Gittu.Web.Security;

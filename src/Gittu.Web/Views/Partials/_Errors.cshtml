@@ -1,0 +1,24 @@
+﻿@using System.Collections.Generic
+@{
+  IDictionary<string, IEnumerable<string>> errors = ViewBag._Errors_;
+}
+@if((errors != null) && errors.Any()) {
+	<div class="alert alert-danger">
+		<ul>
+			@foreach(var error in errors.Where(a => a.Value != null))
+			{
+				if(error.Value.Any() && error.Value.Count() >1) {
+					<ul>
+					@foreach(var childError in error.Value)
+					{
+						<li>@childError</li>
+					}
+					</ul>
+				} else {
+					<li>@error.Value.FirstOrDefault()</li>
+				}
+				
+			}
+		</ul>	
+	</div>
+}

@@ -174,6 +174,12 @@ namespace Gittu.Specs.Services
 
 			It should_send_registration_email_to_user = () =>
 				_mailServiceMock.Verify();
+
+			It should_set_user_status_as_not_verified = () =>
+			_user.Status.ShouldEqual(UserStatus.NotVerified);
+
+			It should_set_user_role_to_site_user = () =>
+				_user.Role.ShouldEqual(UserRole.SiteUser);
 			
 		}
 	}

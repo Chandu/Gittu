@@ -19,18 +19,9 @@ end
 desc "Migrate Db Down"
 fluentmigrator :unmigrate, [:env] => [:build] do |migrator, args|
 	 args.with_defaults(:env => 'Debug')
-	configure_migrator migrator
+	configure_migrator migrator, args
 	migrator.task = "rollback"
 end
-
-desc "Find Migrator"
-task "hunt", [:Dev] do |hunt, args| 
-	if ENV['CONNECTION_STRING'].nil?
-		puts 'chandu'
-	else
-		puts ENV['CONNECTION_STRING']
-	end
- end
 
 def configure_migrator(migrator, args)
 	migrator.command = Dir.glob((File.dirname(__FILE__ )<< "/packages/FluentMigrator*/tools/Migrate.exe")).first

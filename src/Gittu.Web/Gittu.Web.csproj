@@ -104,6 +104,7 @@
     <None Include="Views\Account\Register.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Views\Partials\_Errors.cshtml" />
     <None Include="Views\_GuestLayout.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -122,6 +123,7 @@
     <Compile Include="Domain\Entities\Mapping\IEntityMappingsConfigurator.cs" />
     <Compile Include="Domain\Entities\Mapping\MapBase.cs" />
     <Compile Include="Domain\Entities\Mapping\UserMapping.cs" />
+    <Compile Include="Domain\Entities\UserToken.cs" />
     <Compile Include="Domain\GittuUnitOfWork.cs" />
     <Compile Include="Domain\Entities\Enums.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />

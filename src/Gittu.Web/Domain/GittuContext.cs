@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Gittu.Web.Domain.Entities;
 using Gittu.Web.Domain.Entities.Mapping;

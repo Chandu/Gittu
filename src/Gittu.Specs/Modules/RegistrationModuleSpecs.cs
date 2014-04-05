@@ -46,7 +46,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_email_is_required_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("EMail address is required.");
+			_response.ShouldHaveErroredWith("EMail address is required.");
 	}
 
 	[Subject("Registration")]
@@ -65,7 +65,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_user_name_is_required_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("Username is required.");
+			_response.ShouldHaveErroredWith("Username is required.");
 	}
 
 	[Subject("Registration")]
@@ -84,7 +84,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_message_should_agree_with_terms = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("Please read and Agree to our Terms & Conditions to complete the registration.");
+			_response.ShouldHaveErroredWith("Please read and Agree to our Terms & Conditions to complete the registration.");
 	}
 
 	[Subject("Registration")]
@@ -103,7 +103,7 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_password_is_required_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("Password is required.");
+			_response.ShouldHaveErroredWith("Password is required.");
 	}
 
 	[Subject("Registration")]
@@ -122,12 +122,13 @@ namespace Gittu.Specs.Modules
 		};
 
 		private It should_return_invalid_password_combination_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("Password and Confirm Password donot match.");
+			_response.ShouldHaveErroredWith("Password and Confirm Password donot match.");
 	}
 
 	[Subject("Registration")]
 	public class With_valid_registration_data : RegistrationModuleSpecs
 	{
+		private static User _newUser;
 		private Establish context = () =>
 			{
 				_bootstrapper = new ConfigurableBootstrapper(with =>
@@ -135,7 +136,11 @@ namespace Gittu.Specs.Modules
 					_registrationServiceMock = new Moq.Mock<IRegistrationService>();
 					_registrationServiceMock
 						.Setup(svc => svc.Register(Moq.It.IsAny<User>(), Moq.It.IsAny<string>()))
-						.Returns(new RegistrationResult(true, string.Empty));
+						.Returns(new RegistrationResult(true, string.Empty))
+						.Callback<User, string>((a, b) =>
+						{
+							_newUser = a;
+						});
 					AutoMapper.Mapper.AddProfile<RegisterViewModelProfile>();
 					with.Dependency(_registrationServiceMock.Object);
 					with.Module<RegisterModule>();
@@ -162,6 +167,7 @@ namespace Gittu.Specs.Modules
 
 		private It should_redirect_to_login_page = () =>
 			_response.ShouldHaveRedirectedTo("login");
+
 	}
 
 	[Subject("Registration")]
@@ -201,7 +207,7 @@ namespace Gittu.Specs.Modules
 			_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 		private It should_return_username_exists_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("A user with the username chandu already exists in the system.");
+			_response.ShouldHaveErroredWith("A user with the username chandu already exists in the system.");
 
 	}
 
@@ -242,7 +248,7 @@ namespace Gittu.Specs.Modules
 			_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 		private It should_return_username_exists_message = () =>
-			_response.ShouldHaveErroredWith<RegisterViewModel>("A user with the email c@gmail.com already exists in the system.");
+			_response.ShouldHaveErroredWith("A user with the email c@gmail.com already exists in the system.");
 
 	}
 

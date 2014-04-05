@@ -22,7 +22,7 @@ namespace Gittu.Web.Modules
 				var loginViewModel = this.BindAndValidate<LoginViewModel>();
 				if (!ModelValidationResult.IsValid)
 				{
-					loginViewModel.Errors = ModelValidationResult.ToDictionary();
+					ViewBag._Errors_ = ModelValidationResult.ToDictionary();
 					return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 				}
 
@@ -36,12 +36,12 @@ namespace Gittu.Web.Modules
 						AuthenticationService.SaveUserToken(loginViewModel.UserName, userGuid);
 						return this.LoginAndRedirect(userGuid, loginViewModel.RememberMe ? DateTime.Now.AddDays(15) : new DateTime?());
 					}
-					loginViewModel.Errors = new Dictionary<string, IEnumerable<string>>
+					ViewBag._Errors_ = new Dictionary<string, IEnumerable<string>>
 						{
 							{"", new[] {loginResult.Message}}
 						};
 				}
-				catch (AggregateException ex)
+				catch (AggregateException)
 				{
 					throw;
 				}
@@ -51,10 +51,10 @@ namespace Gittu.Web.Modules
 					{
 						throw;
 					}
-					loginViewModel.Errors = (ex as IUserException).Errors;
+					ViewBag._Errors_ = (ex as IUserException).Errors;
 				}
 
-				return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.Unauthorized);
+				return View["Login", loginViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 			};
 		}
 	}

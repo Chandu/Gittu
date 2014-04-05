@@ -2,7 +2,6 @@
 using Gittu.Web.Modules;
 using Gittu.Web.Security;
 using Gittu.Web.Services;
-using Gittu.Web.ViewModels;
 using Machine.Specifications;
 using Moq;
 using Nancy;
@@ -21,6 +20,7 @@ namespace Gittu.Specs.Modules
 		private static BrowserResponse _response;
 		private static Mock<IAuthenticationService> _authenticationServiceMock;
 		private static Mock<IUserMapper> _userMapperMock;
+
 		private Establish context = () =>
 		{
 			_authenticationServiceMock = new Mock<IAuthenticationService>();
@@ -36,7 +36,7 @@ namespace Gittu.Specs.Modules
 				.Returns(() => new GittuUserIdentity())
 				;
 			var fakePipelines = new Pipelines();
-			FormsAuthentication.Enable(fakePipelines, config); 
+			FormsAuthentication.Enable(fakePipelines, config);
 
 			_bootstrapper = new ConfigurableBootstrapper(with =>
 			{
@@ -60,7 +60,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_username_is_required = () =>
-				_response.ShouldHaveErroredWith<LoginViewModel>("Username is required.");
+				_response.ShouldHaveErroredWith("Username is required.");
 		}
 
 		public class with_invalid_username_length
@@ -76,7 +76,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_username_is_invalid = () =>
-				_response.ShouldHaveErroredWith<LoginViewModel>("Username is invalid.");
+				_response.ShouldHaveErroredWith("Username is invalid.");
 		}
 
 		public class with_blank_password
@@ -92,7 +92,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_password_is_required = () =>
-				_response.ShouldHaveErroredWith<LoginViewModel>("Password is required.");
+				_response.ShouldHaveErroredWith("Password is required.");
 		}
 
 		public class with_invalid_password_length
@@ -108,7 +108,7 @@ namespace Gittu.Specs.Modules
 				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 
 			private It should_return_the_message_password_is_invalid = () =>
-				_response.ShouldHaveErroredWith<LoginViewModel>("Password is invalid.");
+				_response.ShouldHaveErroredWith("Password is invalid.");
 		}
 
 		public class with_valid_credentials
@@ -156,8 +156,9 @@ namespace Gittu.Specs.Modules
 			private It should_have_called_authentication_service = () =>
 	_authenticationServiceMock.Verify();
 
-			private It should_respond_with_unauthorized = () =>
-				_response.StatusCode.ShouldEqual(HttpStatusCode.Unauthorized);
+			//TODO: (CV) Shouldn't it be Unauthorized?
+			private It should_respond_with_bad_request = () =>
+				_response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
 		}
 	}
 }

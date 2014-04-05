@@ -1,13 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Gittu.Web.Domain.Entities
+﻿namespace Gittu.Web.Domain.Entities
 {
 	public enum RepositoryType
 	{
 		Public,
 		Private
+	}
+
+	public enum UserStatus
+	{
+		Unknown,
+		NotVerified,
+		Active,
+		Inactive
+	}
+
+	public enum UserRole
+	{
+		Guest,
+		SiteUser,
+		SiteAdmin,
+		TheGod
 	}
 }

@@ -1,20 +1,20 @@
-﻿using System.Linq;
-using Gittu.Web.ViewModels;
+﻿using System.Collections.Generic;
 using Machine.Specifications;
 using Nancy;
 using Nancy.Testing;
+using System.Linq;
 
 namespace Gittu.Specs
 {
 	internal static class BrowserResponseExtensions
 	{
-		public static void ShouldHaveErroredWith<T>(this BrowserResponse response, string message)
-			where T : IInvalidInput
+		public static void ShouldHaveErroredWith(this BrowserResponse response, string message)
 		{
 			response.StatusCode.ShouldEqual(HttpStatusCode.BadRequest);
-			var result = response.GetModel<T>();
-			result.Errors.ShouldNotBeEmpty();
-			result.Errors.Values.SelectMany(a => a).ShouldContain(message);
+			IDictionary<string, IEnumerable<string>> result = response.Context.ViewBag._Errors_ ;
+			result.ShouldNotBeNull();
+			result.ShouldNotBeEmpty();
+			result.SelectMany(a => a.Value).ShouldContain(message);
 		}
 	}
 }

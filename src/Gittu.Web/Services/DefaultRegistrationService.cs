@@ -49,6 +49,8 @@ namespace Gittu.Web.Services
 				throw new EMailExistsException(user.EMail);
 			}
 			var saltToUse = HashUtils.GenerateSalt();
+			user.Status = UserStatus.NotVerified;
+			user.Role = UserRole.SiteUser;
 			user.SetSalt(saltToUse);
 			user.SetPassword(Hasher.Hash(password, saltToUse));
 			using (UnitOfWork.Start())

@@ -11,6 +11,10 @@ namespace Gittu.Web.Domain.Entities
 
 		public virtual string EMail { get; set; }
 
+		public virtual UserStatus Status { get; set; }
+
+		public virtual UserRole Role{ get; set; }
+
 		//Refer to the URL: http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ for mapping private/protected properties in EF Code First later.
 		protected internal virtual byte[] Password { get; set; }
 

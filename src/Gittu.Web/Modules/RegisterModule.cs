@@ -19,7 +19,7 @@ namespace Gittu.Web.Modules
 				var registrationViewModel = this.BindAndValidate<RegisterViewModel>();
 				if (!ModelValidationResult.IsValid)
 				{
-					registrationViewModel.Errors = ModelValidationResult.ToDictionary();
+					ViewBag._Errors_ = ModelValidationResult.ToDictionary();
 					return View["Register", registrationViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 				}
 				try
@@ -30,13 +30,13 @@ namespace Gittu.Web.Modules
 					{
 						return Response.AsRedirect("login");
 					}
-					registrationViewModel.Errors = new Dictionary<string, IEnumerable<string>>
+					ViewBag._Errors_ = new Dictionary<string, IEnumerable<string>>
 					{
 						{"", new[] {registrationResult.Message}}
 					};
 
 				}
-				catch (AggregateException ex)
+				catch (AggregateException)
 				{
 					throw;
 				}
@@ -46,7 +46,7 @@ namespace Gittu.Web.Modules
 					{
 						throw;
 					}
-					registrationViewModel.Errors = (ex as IUserException).Errors;
+					ViewBag._Errors_ = (ex as IUserException).Errors;
 				}
 				return View["Register",registrationViewModel].WithStatusCode(HttpStatusCode.BadRequest);
 			};
