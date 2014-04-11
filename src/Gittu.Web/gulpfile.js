@@ -1,19 +1,18 @@
 var gulp = require('gulp');
 var	less = require('gulp-less');
-var	path = require('path');
 var	watch = require('gulp-watch');
-var sys = require('sys');
-var exec = require('child_process').exec;
+var uglify = require('uglify-js');
+var gulpif= require('gulp-if');
+var browserify= require('browserify');
+var glob = require("glob");
+var path = require("path");
+var source = require("vinyl-source-stream");
 
-var resouces = {
-	"scripts" :  [
-		"./assets/components/modernizr/modernizr.js",
-		"./assets/components/underscore/underscore.js",
-		"./assets/components/jquery/jquery.js",
-		"./assets/components/bootstrap/dist/js/bootstrap.js",
-		"./assets/components/json3/lib/json3.js",
-		"./assets/js/*.js"
-	],
+var resources = {
+	"scripts" :  {
+		"common" : ["./assets/components/modernizr/modernizr.js"],
+		"apps" : "./app/*.app.js" 
+	},
 	"styles" : [
 		"./assets/css/gittu.less"
 	],
@@ -26,15 +25,29 @@ gulp.task('default', ['images', 'styles', 'scripts'], function() {
 	console.log("Default task done.");
 });
 
-gulp.task('scripts',  function () {
-	gulp.src(resouces.scripts)
+gulp.task('browserify',  function () {
+	glob(resources.scripts.apps, null, function (er, files) {
+		files.forEach(function(file) {
+			browserify({
+				debug: true
+			}).require(file, {entry: true})
+			.bundle()
+			.pipe(source(path.basename(file)))
+			.pipe(gulp.dest('./public/js/'))
+			;
+		});
+	});
+});
+
+gulp.task('scripts',  ['browserify'], function () {
+	gulp.src(resources.scripts.common)
 		.pipe(gulp.dest('./public/js/'));
 });
 
 gulp.task('styles', function () {
 	gulp.src('./assets/css/*.css')
 		.pipe(gulp.dest('./public/css/'));
-	gulp.src(resouces.styles)
+	gulp.src(resources.styles)
 		.pipe(watch(function(files) {
 			return files.pipe(less())
 				.pipe(gulp.dest('./public/css/'));
@@ -42,7 +55,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('images', function () {
-	gulp.src(resouces.images)
+	gulp.src(resources.images)
 		.pipe(gulp.dest('./public/img/'));
 });
 
@@ -52,7 +65,7 @@ gulp.task('migrate', function () {
 
 // task to run while actively developing
 gulp.task('watch', ['scripts','styles', 'images'], function () {
-    gulp.watch(resouces.scripts, ['scripts']);
-    gulp.watch(resouces.styles, ['styles']);
-    gulp.watch(resouces.images, ['images']);
+		gulp.watch(resources.scripts, ['scripts']);
+		gulp.watch(resources.styles, ['styles']);
+		gulp.watch(resources.images, ['images']);
 });
