@@ -1,10 +1,10 @@
 {
-  "name": "Gittu.Web.AssetsManager",
+  "name": "Gittu.Web.Assets",
   "version": "0.0.1",
-  "description": "node based AssetManager for Gittu project",
+  "description": "node based Assets package for Gittu project",
   "main": "karma.conf.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --spec",
     "build": "gulp",
     "watch": "gulp watch"
   },
@@ -20,6 +20,7 @@
     "gulp-if": "0.0.5",
     "uglify-js": "^2.4.13",
     "vinyl-source-stream": "^0.1.1",
-    "glob": "^3.2.9"
+    "glob": "^3.2.9",
+    "mocha": "^1.18.2"
   }
 }

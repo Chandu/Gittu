@@ -10,14 +10,14 @@ var source = require("vinyl-source-stream");
 
 var resources = {
 	"scripts" :  {
-		"common" : ["./assets/components/modernizr/modernizr.js"],
-		"apps" : "./app/*.app.js" 
+		"common" : [".components/modernizr/modernizr.js"],
+		"apps" : "./js/app/*.app.js" 
 	},
 	"styles" : [
-		"./assets/css/gittu.less"
+		"./css/gittu.less"
 	],
 	"images" : [
-		"./assets/img/*.*"
+		"./img/*.*"
 	]
 };
 
@@ -33,7 +33,7 @@ gulp.task('browserify',  function () {
 			}).require(file, {entry: true})
 			.bundle()
 			.pipe(source(path.basename(file)))
-			.pipe(gulp.dest('./public/js/'))
+			.pipe(gulp.dest('../public/js/'))
 			;
 		});
 	});
@@ -41,22 +41,22 @@ gulp.task('browserify',  function () {
 
 gulp.task('scripts',  ['browserify'], function () {
 	gulp.src(resources.scripts.common)
-		.pipe(gulp.dest('./public/js/'));
+		.pipe(gulp.dest('../public/js/'));
 });
 
 gulp.task('styles', function () {
-	gulp.src('./assets/css/*.css')
-		.pipe(gulp.dest('./public/css/'));
+	gulp.src('./css/*.css')
+		.pipe(gulp.dest('../public/css/'));
 	gulp.src(resources.styles)
 		.pipe(watch(function(files) {
 			return files.pipe(less())
-				.pipe(gulp.dest('./public/css/'));
+				.pipe(gulp.dest('../public/css/'));
 		}));
 });
 
 gulp.task('images', function () {
 	gulp.src(resources.images)
-		.pipe(gulp.dest('./public/img/'));
+		.pipe(gulp.dest('../public/img/'));
 });
 
 gulp.task('migrate', function () {
