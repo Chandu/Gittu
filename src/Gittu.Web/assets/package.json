@@ -4,7 +4,7 @@
   "description": "node based Assets package for Gittu project",
   "main": "karma.conf.js",
   "scripts": {
-    "test": "mocha --spec",
+    "test": "mocha ",
     "build": "gulp",
     "watch": "gulp watch"
   },
